@@ -1,0 +1,248 @@
+কম্পিউটার বা কোডিং অ্যাপ ছাড়াই আপনার ফোনের খুব সাধারণ একটি অ্যাপ (Notepad বা Files ম্যানেজার) ব্যবহার করে ১ মিনিটে সরাসরি **index.html** ফাইল বানিয়ে নেওয়ার সবচেয়ে সহজ পদ্ধতি নিচে ধাপে ধাপে বুঝিয়ে দেওয়া হলো:
+### ধাপ ১: আপনার ফোনের ফাইল ম্যানেজার বা নোটপ্যাড খুলুন
+১. আপনার মোবাইলের **Files** (ফাইল ম্যানেজার) অথবা **Notes** (নোটপ্যাড) অ্যাপে যান।
+### ধাপ ২: ফাইল তৈরি এবং নাম পরিবর্তন করা
+১. ফোনের যেকোনো ফোল্ডারে গিয়ে নতুন একটি **Text File** বা নোট তৈরি করুন।
+২. আমি নিচে যে পুরো কোডটি দিয়েছি, সেটি সম্পূর্ণ কপি করে ওই ফাইলে বা নোটে পেস্ট করুন।
+৩. এবার ফাইলটি সেভ করার সময় নাম দিন: **index.html**
+*(জরুরি টিপস: ফাইলের নামের শেষে যেন .txt বা অন্য কিছু না থাকে। শুধু index.html হতে হবে। যদি ফোনে নাম পরিবর্তনের সময় ডট টিএক্সটি চলে আসে, তবে ফাইল ম্যানেজার থেকে ফাইলের রিনেম (Rename) অপশনে গিয়ে .txt কেটে দিয়ে শুধু index.html লিখে সেভ করে নিন।)*
+### অথবা আরও সহজ একটি শর্টকাট উপায় (GitHub-এর ভেতর থেকেই ফাইল তৈরি):
+আপনার যদি ফাইল বানিয়ে আপলোড করতে ঝামেলা মনে হয়, তবে আপনি সরাসরি **GitHub-এর ভেতরেই** ফাইল লিখে ফেলতে পারেন। কোনো ফাইল আগে থেকে মোবাইলে সেভ করার দরকার নেই:
+১. আপনি যেখানে আটকে আছেন (যেখানে লেখা আছে *Drag files here*), ঠিক তার ঠিক নিচেই নীল রঙের লেখা দেখবেন **"or create a new file"** (নতুন ফাইল তৈরি করুন)।
+২. ওই **"create a new file"** লেখাটায় ক্লিক করুন।
+৩. সেখানে একটি খালি বক্স দেখতে পাবেন, যার ওপরে নাম লেখার জায়গা থাকবে। ওই নামের জায়গায় লিখে দিন: **index.html**
+৪. তারপরের বড় বক্সটিতে আমি নিচে যে সম্পূর্ণ কোডটি দিয়েছি, সেটি পুরোটা কপি করে পেস্ট করে দিন।
+৫. একদম নিচে গিয়ে সবুজ রঙের **"Commit changes"** বাটনে ক্লিক করুন।
+বাস! এতে করেই আপনার ফাইল তৈরি হয়ে যাবে এবং GitHub-এ সরাসরি সেভ হয়ে যাবে।
+### এই কোডটি কপি করে নিন:
+```html
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>নগদ উদ্যোক্তা QR কোড জেনারেটর</title>
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: 'SolaimanLipi', Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 900px;
+            width: 100%;
+        }
+        .form-section, .preview-section {
+            flex: 1;
+            min-width: 300px;
+        }
+        h2 {
+            color: #ec1c24;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ec1c24;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #c8141d;
+        }
+        /* Nagad Poster Design */
+        .nagad-card {
+            background: #ec1c24;
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .header-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .sub-title {
+            font-size: 14px;
+            margin-bottom: 15px;
+            background: #fff;
+            color: #ec1c24;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        .qr-box {
+            background: white;
+            padding: 15px;
+            display: inline-block;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .number-section {
+            background: #fff;
+            color: #ec1c24;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin: 15px 0;
+        }
+        .info-section {
+            background: #ffc20e;
+            color: #000;
+            padding: 12px;
+            border-radius: 5px;
+            text-align: left;
+            font-size: 14px;
+        }
+        .info-row {
+            margin-bottom: 5px;
+            display: flex;
+        }
+        .info-label {
+            width: 100px;
+            font-weight: bold;
+        }
+        .footer-text {
+            margin-top: 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- ফর্ম সেকশন -->
+    <div class="form-section">
+        <h2>নগদ উদ্যোক্তা ফর্ম</h2>
+        <div class="form-group">
+            <label>নাম:</label>
+            <input type="text" id="inputName" placeholder="আপনার নাম লিখুন" value="Jannatul Hafsa">
+        </div>
+        <div class="form-group">
+            <label>দোকানের নাম:</label>
+            <input type="text" id="inputShop" placeholder="দোকানের নাম লিখুন" value="Inani F.T Enterprise">
+        </div>
+        <div class="form-group">
+            <label>ঠিকানা:</label>
+            <input type="text" id="inputAddress" placeholder="ঠিকানা লিখুন" value="Ruppottiy jaliya palong ukhiya Cox's bazar">
+        </div>
+        <div class="form-group">
+            <label>আইডি (ID):</label>
+            <input type="text" id="inputID" placeholder="আইডি লিখুন" value="F9YDP3">
+        </div>
+        <div class="form-group">
+            <label>উদ্যোক্তা অ্যাকাউন্ট নাম্বার (১১ ডিজিট):</label>
+            <input type="text" id="inputNumber" maxlength="11" placeholder="017xxxxxxxx" value="01741100652">
+        </div>
+        <button onclick="generateQRCode()">QR কোড এবং ডিজাইন তৈরি করুন</button>
+    </div>
+
+    <!-- প্রিভিউ এবং ডিজাইন সেকশন -->
+    <div class="preview-section">
+        <h2>প্রিভিউ</h2>
+        <div class="nagad-card" id="captureCard">
+            <div class="header-title">নগদ উদ্যোক্তা</div>
+            <div class="sub-title">ক্যাশ আউট করতে QR কোডটি স্ক্যান করুন</div>
+            
+            <div class="qr-box">
+                <div id="qrcode"></div>
+            </div>
+
+            <div>নগদ উদ্যোক্তা অ্যাকাউন্ট নাম্বার</div>
+            <div class="number-section" id="dispNumber">01741100652</div>
+
+            <div class="info-section">
+                <div style="font-weight: bold; text-align: center; margin-bottom: 8px; border-bottom: 1px solid #000; padding-bottom: 3px;">নগদ উদ্যোক্তার তথ্যাবলি</div>
+                <div class="info-row"><span class="info-label">নাম</span>: <span id="dispName">Jannatul Hafsa</span></div>
+                <div class="info-row"><span class="info-label">দোকানের নাম</span>: <span id="dispShop">Inani F.T Enterprise</span></div>
+                <div class="info-row"><span class="info-label">ঠিকানা</span>: <span id="dispAddress">Ruppottiy jaliya palong ukhiya Cox's bazar</span></div>
+                <div class="info-row"><span class="info-label">আইডি</span>: <span id="dispID">F9YDP3</span></div>
+            </div>
+
+            <div class="footer-text">
+                nagad.com.bd | 📞 16167 / 096 096 16167
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function generateQRCode() {
+        const name = document.getElementById('inputName').value;
+        const shop = document.getElementById('inputShop').value;
+        const address = document.getElementById('inputAddress').value;
+        const id = document.getElementById('inputID').value;
+        const number = document.getElementById('inputNumber').value;
+
+        document.getElementById('dispName').innerText = name;
+        document.getElementById('dispShop').innerText = shop;
+        document.getElementById('dispAddress').innerText = address;
+        document.getElementById('dispID').innerText = id;
+        document.getElementById('dispNumber').innerText = number;
+
+        document.getElementById('qrcode').innerHTML = "";
+
+        const qrData = `Nagad Merchant: ${number}, Name: ${name}, Shop: ${shop}, ID: ${id}`;
+
+        new QRCode(document.getElementById("qrcode"), {
+            text: qrData,
+            width: 140,
+            height: 140,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+    }
+
+    window.onload = function() {
+        generateQRCode();
+    };
+</script>
+
+</body>
+</html>
+
+```
