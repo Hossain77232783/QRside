@@ -24,7 +24,7 @@
             padding: 20px;
         }
 
-        /* কন্ট্রোল প্যানেল (ইনপুট এবং বাটনগুলোর জন্য) */
+        /* কন্ট্রোল প্যানেল */
         .control-panel {
             background: #ffffff;
             padding: 20px;
@@ -85,7 +85,7 @@
         .btn-print { background-color: #007bff; }
         .btn-print:hover { background-color: #0056b3; }
 
-        /* মূল পোস্টার ডিজাইন */
+        /* মূল পোস্টার ফ্রেম */
         .poster-frame {
             border: 2px solid #000000;
             border-radius: 16px;
@@ -116,27 +116,30 @@
             font-size: 13px;
             font-weight: bold;
             background: rgba(255, 255, 255, 0.2);
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 20px;
             color: #fff;
         }
 
         .logo-area {
-            text-align: right;
+            background: white;
+            padding: 5px 12px;
+            border-radius: 6px;
+            text-align: center;
         }
 
         .logo-area img {
-            height: 45px;
-            background: white;
-            padding: 3px 8px;
-            border-radius: 6px;
+            height: 32px;
+            display: block;
+            margin: 0 auto;
         }
 
         .logo-area span {
             display: block;
-            font-size: 10px;
+            font-size: 9px;
             margin-top: 2px;
-            color: #f8d7da;
+            color: #d11241;
+            font-weight: bold;
         }
 
         .main-title {
@@ -221,7 +224,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* নিচের সাদা অংশ (উদ্যোক্তার তথ্যাবলি) */
+        /* নিচের সাদা অংশ */
         .bottom-white {
             background-color: #ffffff;
             color: #333;
@@ -269,7 +272,6 @@
             gap: 8px;
         }
 
-        /* প্রিন트 করার সময় কন্ট্রোল প্যানেল লুকানোর জন্য */
         @media print {
             .control-panel {
                 display: none;
@@ -287,7 +289,7 @@
 </head>
 <body>
 
-    <!-- তথ্য পরিবর্তন করার কন্ট্রোল প্যানেল -->
+    <!-- কন্ট্রোল প্যানেল -->
     <div class="control-panel">
         <h3>উদ্যোক্তার তথ্য ও QR কোড এডিটর</h3>
         <div class="form-group">
@@ -323,10 +325,10 @@
         <!-- ওপরের লাল অংশ -->
         <div class="top-section">
             <div class="header-top">
-                <div class="tagline">দেশি নগদে বেশি লাভ</div>
+                <div class="Bold tagline">দেশি নগদে বেশি লাভ</div>
                 <div class="logo-area">
-                    <!-- নগদ লোগো -->
-                    <img src="https://www.nagad.com.bd/assets/images/logo.svg" alt="Nagad Logo">
+                    <!-- বিকল্প সরাসরি নির্ভরযোগ্য লোগো সোর্স ব্যবহার করা হয়েছে -->
+                    <img src="https://seeklogo.com/images/N/nagad-logo-355240/seeklogo.com.png" alt="Nagad Logo" crossorigin="anonymous">
                     <span>ডাক বিভাগের ডিজিটাল লেনদেন</span>
                 </div>
             </div>
@@ -341,9 +343,7 @@
             <div class="account-label">নগদ উদ্যোক্তা একাউন্ট নাম্বার</div>
 
             <!-- ১১ ডিজিটের আলাদা ঘর -->
-            <div class="account-digits" id="digitContainer">
-                <!-- ডায়নামিকভাবে ডিজিটগুলো এখানে জেনারেট হবে -->
-            </div>
+            <div class="account-digits" id="digitContainer"></div>
         </div>
 
         <!-- মাঝের হলুদ অংশ -->
@@ -372,7 +372,7 @@
                 <tr>
                     <td class="info-label">আইডি</td>
                     <td class="info-colon">:</td>
-                    <td class="info-value" id="displayID">A609852</td>
+                    <td class="info-value" id="displayID">A609851</td>
                 </tr>
             </table>
         </div>
@@ -384,13 +384,12 @@
 
     </div>
 
-    <!-- html2canvas লাইব্রেরি ইমেজ ডাউনলোড করার জন্য -->
+    <!-- html2canvas লাইব্রেরি -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <script>
-        // কিউআর কোড জেনারেট করার ফাংশন
         let qrcodeObj = new QRCode(document.getElementById("qrcode"), {
-            text: "01#########",
+            text: "018########",
             width: 180,
             height: 180,
             colorDark : "#000000",
@@ -399,22 +398,19 @@
         });
 
         function updatePoster() {
-            // ইনপুট ভ্যালু সংগ্রহ
             const name = document.getElementById('inputName').value;
             const shop = document.getElementById('inputShop').value;
             const address = document.getElementById('inputAddress').value;
             const id = document.getElementById('inputID').value;
-            let phone = document.getElementById('inputPhone').value.replace(/\D/g, ''); // শুধু সংখ্যা ফিল্টার
+            let phone = document.getElementById('inputPhone').value.replace(/\D/g, '');
 
             if(phone.length > 11) phone = phone.slice(0, 11);
 
-            // টেক্সট আপডেট
             document.getElementById('displayName').innerText = name;
             document.getElementById('displayShop').innerText = shop;
             document.getElementById('displayAddress').innerText = address;
             document.getElementById('displayID').innerText = id;
 
-            // ১১ ডিজিট ঘর ফরম্যাটিং (যেমন: 01#-####-####)
             let digitContainer = document.getElementById('digitContainer');
             digitContainer.innerHTML = '';
 
@@ -425,7 +421,6 @@
                 box.innerText = char;
                 digitContainer.appendChild(box);
 
-                // নির্দিষ্ট পজিশনে হাইফেন বা স্পেস যোগ করা (যেমন ৩য় এবং ৭ম ঘরের পরে)
                 if (i === 2 || i === 6) {
                     let sep = document.createElement('div');
                     sep.className = 'digit-separator';
@@ -434,28 +429,25 @@
                 }
             }
 
-            // QR কোড আপডেট (নগদ পেমেন্ট ফরম্যাট অনুযায়ী ডায়নামিক ডাটা এনকোড করা যায়)
             let qrText = phone ? phone : "01#########";
             qrcodeObj.clear();
             qrcodeObj.makeCode(qrText);
         }
 
-        // ছবি ডাউনলোড করার ফাংশন
         function downloadPosterImage() {
             const controlPanel = document.querySelector('.control-panel');
-            controlPanel.style.display = 'none'; // ডাউনলোডের সময় কন্ট্রোল প্যানেল লুকিয়ে রাখা
+            controlPanel.style.display = 'none';
 
             const poster = document.getElementById('posterArea');
-            html2canvas(poster, { scale: 2, useCORS: true }).then(canvas => {
+            html2canvas(poster, { scale: 2, useCORS: true, allowTaint: true }).then(canvas => {
                 let link = document.createElement('a');
                 link.download = 'nagad-qr-code.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
-                controlPanel.style.display = 'block'; // আবার ফিরিয়ে আনা
+                controlPanel.style.display = 'block';
             });
         }
 
-        // পেজ লোড হওয়ার পর ইনিশিয়াল রান
         window.onload = function() {
             updatePoster();
         }
