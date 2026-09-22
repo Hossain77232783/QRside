@@ -50,7 +50,25 @@
             font-size: 14px;
         }
         
-        /* নগদ অফিশিয়াল পোস্টার ডিজাইন (নমুনা ছবির আদলে) */
+        /* সেইভ বা ডাউনলোড বাটন স্টাইল */
+        .download-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .download-btn:hover {
+            background-color: #218838;
+        }
+
+        /* নগদ অফিশিয়াল পোস্টার ডিজাইন */
         .nagad-card {
             background: #ec1c24;
             color: white;
@@ -64,26 +82,38 @@
         .header-section {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             margin-bottom: 5px;
         }
-        .header-title {
-            font-size: 24px;
-            font-weight: bold;
+        .header-title-box {
             text-align: left;
+        }
+        .header-title {
+            font-size: 22px;
+            font-weight: bold;
             color: white;
         }
-        /* নগদ অফিশিয়াল লোগো ছবি */
-        .nagad-logo {
-            height: 48px;
+        /* নগদ লোগো এবং নিচে সাব-টেক্সট */
+        .nagad-logo-container {
+            text-align: right;
+        }
+        .nagad-logo-img {
+            height: 38px;
             object-fit: contain;
             background: #fff;
-            padding: 3px 8px;
-            border-radius: 6px;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .nagad-sub-slogan {
+            font-size: 9px;
+            color: white;
+            margin-top: 3px;
+            font-weight: bold;
+            white-space: nowrap;
         }
         .sub-title {
             font-size: 16px;
-            margin: 10px 0 12px 0;
+            margin: 8px 0 10px 0;
             font-weight: bold;
         }
         .qr-box {
@@ -99,7 +129,7 @@
             margin: 5px 0 8px 0;
             font-weight: bold;
         }
-        /* ৪ ডিজিট পর পর হাইফেনসহ এক লাইনে ১১ ডিজিট বক্স */
+        /* ৪ ডিজিট পর পর হাইফেনসহ ১১ ডিজিট বক্স */
         .digits-container {
             display: flex;
             justify-content: center;
@@ -176,23 +206,23 @@
             border: 2px solid #333;
             flex-shrink: 0;
         }
-        /* ডান পাশের সরকারি লোগো */
-        .right-gov-logo {
-            text-align: center;
+        /* ডান পাশের কর্নারে "দেশি নগদে বেশি লাভ" স্টাইলিশ টেক্সট */
+        .left-slogan-box {
+            text-align: left;
             flex-shrink: 0;
             margin-left: 8px;
+            background: #fff1f2;
+            border: 1.5px dashed #ec1c24;
+            padding: 6px 8px;
+            border-radius: 6px;
+            max-width: 110px;
         }
-        .gov-logo {
-            width: 42px;
-            height: 42px;
-            object-fit: contain;
-        }
-        .gov-text {
-            font-size: 8px;
-            color: #333;
-            margin-top: 1px;
-            line-height: 1.1;
+        .slogan-main {
+            font-size: 12px;
+            color: #ec1c24;
             font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
         }
         .footer-text {
             margin-top: 8px;
@@ -202,6 +232,24 @@
             color: white;
             text-align: center;
             border-top: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* প্রিন্ট করার সময় শুধু পোস্টারটি দেখানোর জন্য এবং ফর্ম ও বাটন লুকাতে সিএসএস */
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .form-card, .download-btn {
+                display: none !important;
+            }
+            .main-wrapper {
+                max-width: 100%;
+            }
+            .nagad-card {
+                box-shadow: none;
+                border-radius: 0;
+            }
         }
     </style>
 </head>
@@ -231,15 +279,21 @@
             <label>উদ্যোক্তা অ্যাকাউন্ট নাম্বার (১১ ডিজিট):</label>
             <input type="text" id="inputNumber" maxlength="11" placeholder="017xxxxxxxx" oninput="updateData()">
         </div>
+        
+        <!-- পিডিএফ সেইভ বা ডাউনলোড বাটন -->
+        <button class="download-btn" onclick="saveAsPDF()">📥 পোস্টার PDF হিসেবে সেইভ করুন</button>
     </div>
 
     <!-- নগদ অফিশিয়াল পোস্টার প্রিভিউ সেকশন -->
-    <div class="nagad-card">
+    <div class="nagad-card" id="posterArea">
         <div class="header-section">
-            <div class="header-title">নগদ উদ্যোক্তা</div>
+            <div class="header-title-box">
+                <div class="header-title">নগদ উদ্যোক্তা</div>
+            </div>
+            <!-- ডান কর্নারে নগদ লোগো এবং ডিজিটাল লেনদেন টেক্সট -->
             <div class="nagad-logo-container">
-                <!-- নগদ অফিশিয়াল লোগো (স্থায়ী ছবি লিংক) -->
-                <img src="https://i.ibb.co.com/6X10G0Y/Nagad-Logo.png" alt="Nagad Logo" class="nagad-logo" onerror="this.src='https://www.vectorlogo.zone/logos/nagad/nagad-ar21.svg'">
+                <img src="https://www.vectorlogo.zone/logos/nagad/nagad-ar21.svg" alt="Nagad Logo" class="nagad-logo-img">
+                <div class="nagad-sub-slogan">বাংলাদেশ ডাক বিভাগের ডিজিটাল লেনদেন</div>
             </div>
         </div>
         
@@ -251,14 +305,14 @@
 
         <div class="account-title">নগদ উদ্যোক্তা অ্যাকাউন্ট নাম্বার</div>
         
-        <!-- ৪ ডিজিট পর পর হাইফেনসহ সঠিক ১১ ডিজিটের বক্স -->
+        <!-- ৪ ডিজিট পর পর হাইফেনসহ ১১ ডিজিট বক্স -->
         <div class="digits-container" id="digitBoxes">
             <!-- জাভাস্ক্রিপ্ট দিয়ে ডাইনামিক বসবে -->
         </div>
 
         <div class="info-section-title">নগদ উদ্যোক্তার তথ্যাবলি</div>
         
-        <!-- ছবির আদले নিচের তথ্য সেকশন -->
+        <!-- নিচের তথ্য সেকশন -->
         <div class="info-box-wrapper">
             <!-- বাম পাশের স্কয়ার বক্স -->
             <div class="left-square-box"></div>
@@ -278,10 +332,9 @@
                 </div>
             </div>
 
-            <!-- ডান পাশের সরকারি লোগো -->
-            <div class="right-gov-logo">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Government_Seal_of_Bangladesh.svg" alt="Bangladesh Govt Seal" class="gov-logo">
-                <div class="gov-text">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার<br>ডাক অধিদপ্তর</div>
+            <!-- ডান কর্নারে "দেশি নগদে বেশি লাভ" ডিজাইন -->
+            <div class="left-slogan-box">
+                <div class="slogan-main">দেশি নগদে<br>বেশি লাভ</div>
             </div>
         </div>
 
@@ -304,7 +357,7 @@
         document.getElementById('dispAddress').innerText = address;
         document.getElementById('dispID').innerText = id;
 
-        // ১১ ডিজিট ৪ ঘর পর পর হাইফেনসহ নিখুঁতভাবে সাজানো
+        // ১১ ডিজিট ৪ ঘর পর পর হাইফেনসহ সাজানো
         const digitContainer = document.getElementById('digitBoxes');
         digitContainer.innerHTML = "";
         
@@ -340,10 +393,16 @@
         }
     }
 
+    // পিডিএফ হিসেবে সেইভ বা প্রিন্ট করার ফাংশন
+    function saveAsPDF() {
+        window.print();
+    }
+
     window.onload = function() {
+        updateDate(); // নামের মিল রাখতে ফাংশন কল
         updateData();
     };
 </script>
 
 </body>
-</html>             
+</html>            
