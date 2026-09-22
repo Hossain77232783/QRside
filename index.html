@@ -1,5 +1,3 @@
-
-```html
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -11,184 +9,205 @@
     <style>
         body {
             font-family: 'SolaimanLipi', Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #f0f2f5;
             margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 10px;
         }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
+        .main-wrapper {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        /* ইনপুট ফর্ম ডিজাইন */
+        .form-card {
             background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            max-width: 900px;
-            width: 100%;
-        }
-        .form-section, .preview-section {
-            flex: 1;
-            min-width: 300px;
-        }
-        h2 {
-            color: #ec1c24;
-            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             margin-bottom: 20px;
         }
+        .form-card h3 {
+            margin-top: 0;
+            color: #ec1c24;
+            text-align: center;
+            font-size: 18px;
+        }
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
             font-weight: bold;
+            font-size: 14px;
             color: #333;
         }
         input {
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             box-sizing: border-box;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 4px;
+            font-size: 14px;
         }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #ec1c24;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #c8141d;
-        }
-        /* Nagad Poster Design */
+        
+        /* নগদ অফিশিয়াল পোস্টার ডিজাইন */
         .nagad-card {
             background: #ec1c24;
             color: white;
-            border-radius: 10px;
-            padding: 20px;
+            border-radius: 8px;
+            padding: 15px;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             position: relative;
+            box-sizing: border-box;
+        }
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 8px;
         }
         .header-title {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
-            margin-bottom: 5px;
+            text-align: left;
+        }
+        .nagad-logo-text {
+            font-size: 22px;
+            font-weight: bold;
+            background: #fff;
+            color: #ec1c24;
+            padding: 3px 10px;
+            border-radius: 5px;
+            letter-spacing: 1px;
         }
         .sub-title {
             font-size: 14px;
-            margin-bottom: 15px;
-            background: #fff;
-            color: #ec1c24;
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
+            margin-bottom: 12px;
             font-weight: bold;
         }
         .qr-box {
             background: white;
-            padding: 15px;
-            display: inline-block;
-            border-radius: 8px;
-            margin: 10px 0;
-        }
-        .number-section {
-            background: #fff;
-            color: #ec1c24;
             padding: 10px;
-            border-radius: 5px;
-            font-size: 20px;
+            display: inline-block;
+            border-radius: 6px;
+            margin: 5px 0;
+        }
+        .account-title {
+            font-size: 13px;
+            margin: 8px 0 5px 0;
+        }
+        /* আলাদা ডিজিট বক্স স্টাইল */
+        .digits-container {
+            display: flex;
+            justify-content: center;
+            gap: 3px;
+            margin: 8px 0 12px 0;
+        }
+        .digit-box {
+            background: white;
+            color: #ec1c24;
+            font-size: 18px;
             font-weight: bold;
-            letter-spacing: 2px;
-            margin: 15px 0;
+            width: 26px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
         .info-section {
             background: #ffc20e;
             color: #000;
-            padding: 12px;
+            padding: 10px;
             border-radius: 5px;
             text-align: left;
-            font-size: 14px;
+            font-size: 13px;
+        }
+        .info-header {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 6px;
+            border-bottom: 1px solid #777;
+            padding-bottom: 3px;
         }
         .info-row {
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             display: flex;
         }
         .info-label {
-            width: 100px;
+            width: 75px;
             font-weight: bold;
         }
         .footer-text {
             margin-top: 10px;
-            font-size: 12px;
+            font-size: 11px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            padding-top: 5px;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- ফর্ম সেকশন -->
-    <div class="form-section">
-        <h2>নগদ উদ্যোক্তা ফর্ম</h2>
+<div class="main-wrapper">
+    <!-- ইনপুট ফর্ম সেকশন (সব খালি রাখা হয়েছে) -->
+    <div class="form-card">
+        <h3>উদ্যোক্তার তথ্য পূরণ করুন</h3>
         <div class="form-group">
             <label>নাম:</label>
-            <input type="text" id="inputName" placeholder="আপনার নাম লিখুন" value="Jannatul Hafsa">
+            <input type="text" id="inputName" placeholder="আপনার নাম এখানে লিখুন" oninput="generateQRCode()">
         </div>
         <div class="form-group">
             <label>দোকানের নাম:</label>
-            <input type="text" id="inputShop" placeholder="দোকানের নাম লিখুন" value="Inani F.T Enterprise">
+            <input type="text" id="inputShop" placeholder="দোকানের নাম এখানে লিখুন" oninput="generateQRCode()">
         </div>
         <div class="form-group">
             <label>ঠিকানা:</label>
-            <input type="text" id="inputAddress" placeholder="ঠিকানা লিখুন" value="Ruppottiy jaliya palong ukhiya Cox's bazar">
+            <input type="text" id="inputAddress" placeholder="ঠিকানা এখানে লিখুন" oninput="generateQRCode()">
         </div>
         <div class="form-group">
             <label>আইডি (ID):</label>
-            <input type="text" id="inputID" placeholder="আইডি লিখুন" value="F9YDP3">
+            <input type="text" id="inputID" placeholder="মার্চেন্ট আইডি লিখুন" oninput="generateQRCode()">
         </div>
         <div class="form-group">
             <label>উদ্যোক্তা অ্যাকাউন্ট নাম্বার (১১ ডিজিট):</label>
-            <input type="text" id="inputNumber" maxlength="11" placeholder="017xxxxxxxx" value="01741100652">
+            <input type="text" id="inputNumber" maxlength="11" placeholder="017xxxxxxxx" oninput="generateQRCode()">
         </div>
-        <button onclick="generateQRCode()">QR কোড এবং ডিজাইন তৈরি করুন</button>
     </div>
 
-    <!-- প্রিভিউ এবং ডিজাইন সেকশন -->
-    <div class="preview-section">
-        <h2>প্রিভিউ</h2>
-        <div class="nagad-card" id="captureCard">
+    <!-- নগদ অফিশিয়াল পোস্টার প্রিভিউ সেকশন -->
+    <div class="nagad-card">
+        <div class="header-section">
             <div class="header-title">নগদ উদ্যোক্তা</div>
-            <div class="sub-title">ক্যাশ আউট করতে QR কোডটি স্ক্যান করুন</div>
-            
-            <div class="qr-box">
-                <div id="qrcode"></div>
-            </div>
+            <div class="nagad-logo-text">নগদ</div>
+        </div>
+        
+        <div class="sub-title">ক্যাশ আউট করতে QR কোডটি স্ক্যান করুন</div>
+        
+        <div class="qr-box">
+            <div id="qrcode"></div>
+        </div>
 
-            <div>নগদ উদ্যোক্তা অ্যাকাউন্ট নাম্বার</div>
-            <div class="number-section" id="dispNumber">01741100652</div>
+        <div class="account-title">নগদ উদ্যোক্তা অ্যাকাউন্ট নাম্বার</div>
+        
+        <!-- ১১ ডিজিটের আলাদা বক্স -->
+        <div class="digits-container" id="digitBoxes">
+            <!-- জাভাস্ক্রিপ্ট দিয়ে ডাইনামিক বসবে -->
+        </div>
 
-            <div class="info-section">
-                <div style="font-weight: bold; text-align: center; margin-bottom: 8px; border-bottom: 1px solid #000; padding-bottom: 3px;">নগদ উদ্যোক্তার তথ্যাবলি</div>
-                <div class="info-row"><span class="info-label">নাম</span>: <span id="dispName">Jannatul Hafsa</span></div>
-                <div class="info-row"><span class="info-label">দোকানের নাম</span>: <span id="dispShop">Inani F.T Enterprise</span></div>
-                <div class="info-row"><span class="info-label">ঠিকানা</span>: <span id="dispAddress">Ruppottiy jaliya palong ukhiya Cox's bazar</span></div>
-                <div class="info-row"><span class="info-label">আইডি</span>: <span id="dispID">F9YDP3</span></div>
-            </div>
+        <div class="info-section">
+            <div class="info-header">নগদ উদ্যোক্তার তথ্যাবলি</div>
+            <div class="info-row"><span class="info-label">নাম</span>: <span id="dispName"></span></div>
+            <div class="info-row"><span class="info-label">দোকানের নাম</span>: <span id="dispShop"></span></div>
+            <div class="info-row"><span class="info-label">ঠিকানা</span>: <span id="dispAddress"></span></div>
+            <div class="info-row"><span class="info-label">আইডি</span>: <span id="dispID"></span></div>
+        </div>
 
-            <div class="footer-text">
-                nagad.com.bd | 📞 16167 / 096 096 16167
-            </div>
+        <div class="footer-text">
+            nagad.com.bd &nbsp;|&nbsp; 📞 16167 / 096 096 16167
         </div>
     </div>
 </div>
@@ -205,16 +224,25 @@
         document.getElementById('dispShop').innerText = shop;
         document.getElementById('dispAddress').innerText = address;
         document.getElementById('dispID').innerText = id;
-        document.getElementById('dispNumber').innerText = number;
 
+        // ১১ ডিজিট আলাদা বক্সে ভাগ করা
+        const digitContainer = document.getElementById('digitBoxes');
+        digitContainer.innerHTML = "";
+        for (let i = 0; i < 11; i++) {
+            const digitBox = document.createElement('div');
+            digitBox.className = 'digit-box';
+            digitBox.innerText = number[i] || "";
+            digitContainer.appendChild(digitBox);
+        }
+
+        // QR কোড জেনারেট
         document.getElementById('qrcode').innerHTML = "";
-
-        const qrData = `Nagad Merchant: ${number}, Name: ${name}, Shop: ${shop}, ID: ${id}`;
+        const qrData = number ? `Nagad Merchant: ${number}, Name: ${name}, Shop: ${shop}, ID: ${id}` : "Nagad";
 
         new QRCode(document.getElementById("qrcode"), {
             text: qrData,
-            width: 140,
-            height: 140,
+            width: 130,
+            height: 130,
             colorDark : "#000000",
             colorLight : "#ffffff",
             correctLevel : QRCode.CorrectLevel.H
@@ -228,5 +256,3 @@
 
 </body>
 </html>
-
-```
