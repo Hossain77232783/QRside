@@ -31,7 +31,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             width: 100%;
-            max-width: 500px;
+            max-width: 480px;
             margin-bottom: 25px;
         }
 
@@ -39,6 +39,7 @@
             margin-bottom: 15px;
             color: #d11241;
             text-align: center;
+            font-size: 16px;
         }
 
         .form-group {
@@ -50,7 +51,7 @@
             font-weight: bold;
             margin-bottom: 5px;
             color: #333;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .form-group input {
@@ -85,7 +86,7 @@
         .btn-print { background-color: #007bff; }
         .btn-print:hover { background-color: #0056b3; }
 
-        /* মূল পোস্টার ফ্রেম */
+        /* মূল পোস্টার ফ্রেম (হুবহু ছবির লেআউট) */
         .poster-frame {
             border: 2px solid #000000;
             border-radius: 16px;
@@ -100,7 +101,7 @@
         .top-section {
             background-color: #d11241;
             color: white;
-            padding: 20px 15px;
+            padding: 18px 15px;
             text-align: center;
             position: relative;
         }
@@ -113,69 +114,71 @@
         }
 
         .tagline {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.25);
             padding: 5px 12px;
             border-radius: 20px;
             color: #fff;
         }
 
+        /* লোগো সেকশন */
         .logo-area {
             background: white;
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 6px;
             text-align: center;
+            display: inline-block;
         }
 
         .logo-area img {
-            height: 30px;
+            height: 32px;
             display: block;
             margin: 0 auto;
         }
 
         .logo-area span {
             display: block;
-            font-size: 9px;
-            margin-top: 2px;
-            color: #d11241;
+            font-size: 8px;
+            margin-top: 1px;
+            color: #444;
             font-weight: bold;
         }
 
         .main-title {
             font-size: 26px;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             letter-spacing: 0.5px;
         }
 
         .sub-title {
-            font-size: 14px;
-            margin-bottom: 15px;
+            font-size: 13px;
+            margin-bottom: 12px;
             color: #fbebee;
         }
 
         /* কিউআর কোড হোয়াইট বক্স */
         .qr-box-wrapper {
             background: white;
-            padding: 15px;
+            padding: 12px;
             border-radius: 12px;
             display: inline-block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         #qrcode canvas, #qrcode img {
             display: block;
             margin: 0 auto;
-            width: 180px !important;
-            height: 180px !important;
+            width: 170px !important;
+            height: 170px !important;
         }
 
         .account-label {
-            font-size: 13px;
-            margin-top: 8px;
-            margin-bottom: 10px;
+            font-size: 12px;
+            margin-top: 6px;
+            margin-bottom: 8px;
             color: #fff;
         }
 
@@ -183,21 +186,20 @@
         .account-digits {
             display: flex;
             justify-content: center;
-            gap: 3px;
+            align-items: center;
+            gap: 2px;
             background: white;
-            padding: 8px;
+            padding: 8px 5px;
             border-radius: 8px;
-            max-width: 100%;
-            overflow-x: auto;
         }
 
         .digit-box {
             background: #ffffff;
             color: #d11241;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: bold;
-            width: 28px;
-            height: 38px;
+            width: 27px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -209,8 +211,7 @@
             color: #d11241;
             font-size: 18px;
             font-weight: bold;
-            display: flex;
-            align-items: center;
+            margin: 0 1px;
         }
 
         /* মাঝের হলুদ অংশ */
@@ -218,9 +219,9 @@
             background-color: #ffc107;
             color: #000;
             text-align: center;
-            padding: 8px;
+            padding: 7px;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 14px;
             letter-spacing: 0.5px;
         }
 
@@ -228,7 +229,7 @@
         .bottom-white {
             background-color: #ffffff;
             color: #333;
-            padding: 20px;
+            padding: 18px 20px;
         }
 
         .info-table {
@@ -237,18 +238,18 @@
         }
 
         .info-table td {
-            padding: 6px 0;
+            padding: 5px 0;
             font-size: 13px;
         }
 
         .info-label {
-            width: 28%;
+            width: 27%;
             font-weight: bold;
             color: #444;
         }
 
         .info-colon {
-            width: 4%;
+            width: 5%;
             text-align: center;
             font-weight: bold;
         }
@@ -264,12 +265,12 @@
             background-color: #d11241;
             color: white;
             text-align: center;
-            padding: 10px;
+            padding: 9px;
             font-size: 11px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         @media print {
@@ -327,8 +328,8 @@
             <div class="header-top">
                 <div class="tagline">দেশি নগদে বেশি লাভ</div>
                 <div class="logo-area">
-                    <!-- ইনলাইন বেস সোর্স লোগো (100% লোড হবে) -->
-                    <img src="https://www.vectorlogo.zone/logos/nagad/nagad-ar21.svg" alt="Nagad Logo">
+                    <!-- Base64 এনকোডেড লোগো (সার্ভার ডাউন থাকলেও সবসময় দেখাবে) -->
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzOTAuNSA5OS43MiI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiNmMjY1MjI7fS5jbHMtMntmaWxsOiNkMWMyOGE7fS5jbHMtM3tmaWxsOiMyMzFmMjA7fTwvc3R5bGU+PC9kZWZzPjxnIGlkPSJDYXBhXzEiIGRhdGEtbmFtZT0iQ2FwYSAxIj48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0yOTUuMiwzOC45MmMtNS4zMSwwLTguMzksMy4wOC04LjM5LDguMzlsMCwzMC42MWMwLDUuMzEsMy4wOCw4LjM5LDguMzksOC4zOWw3LjI2LDBjNS4zMSwwLDguMzktMy4wOCw4LjM5LTguMzlsMC0zMC42MWMwLTUuMzEtMy4wOC04LjM5LTguMzktOC4zOUwyOTUuMiwzOC45MnoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNjQuNjMsNDcuMzFhOC40Miw4LjQyLDAsMCwwLTguMzktOC4zOWwtNy4yNiwwYy01LjMxLDAtOC4zOSwzLjA4LTguMzksOC4zOWwwLDMwLjYxYzAsNS4zMSwzLjA4LDguMzksOC4zOSw4LjM5bDcuMjYsMGM1LjMxLDAsOC4zOS0zLjA4LDguMzktOC4zOVwwLTMwLjYxWiIvPjxwYXRoIGNsYXNzPSJjbHMtMyIgZD0iTTM1OS42NCwzOC45MmMtNS4zMSwwLTguMzksMy4wOC04LjM5LDguMzlsMCwzMC42MWMwLDUuMzEsMy4wOCw4LjM5LDguMzksOC4zOWw3LjI2LDBjNS4zMSwwLDguMzktMy4wOCw4LjM5LTguMzlsMC0zMC42MWMwLTUuMzEtMy4wOC04LjM5LTguMzktOC4zOUwzNTkuNjQsMzguOTJ6Ii8+PC9nPjwvc3ZnPg==" alt="Nagad Logo">
                     <span>ডাক বিভাগের ডিজিটাল লেনদেন</span>
                 </div>
             </div>
@@ -390,8 +391,8 @@
     <script>
         let qrcodeObj = new QRCode(document.getElementById("qrcode"), {
             text: "01812711699",
-            width: 180,
-            height: 180,
+            width: 170,
+            height: 170,
             colorDark : "#000000",
             colorLight : "#ffffff",
             correctLevel : QRCode.CorrectLevel.H
@@ -453,4 +454,4 @@
         }
     </script>
 </body>
-</html>
+</html>        
