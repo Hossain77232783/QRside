@@ -4,222 +4,460 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>নগদ উদ্যোক্তা QR কোড জেনারেটর</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- html2pdf.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- QRCode.js লাইব্রেরি -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap');
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'SolaimanLipi', Arial, sans-serif;
+        }
+
         body {
-            font-family: 'Hind Siliguri', sans-serif;
             background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
         }
-        .nagad-red {
-            background-color: #d11d27;
+
+        /* কন্ট্রোল প্যানেল (ইনপুট এবং বাটনগুলোর জন্য) */
+        .control-panel {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 25px;
         }
+
+        .control-panel h3 {
+            margin-bottom: 15px;
+            color: #d11241;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .btn-download { background-color: #28a745; }
+        .btn-download:hover { background-color: #218838; }
+        
+        .btn-print { background-color: #007bff; }
+        .btn-print:hover { background-color: #0056b3; }
+
+        /* মূল পোস্টার ডিজাইন */
+        .poster-frame {
+            border: 2px solid #000000;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #ffffff;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        /* ওপরের লাল অংশ */
+        .top-section {
+            background-color: #d11241;
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .tagline {
+            font-size: 13px;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: #fff;
+        }
+
+        .logo-area {
+            text-align: right;
+        }
+
+        .logo-area img {
+            height: 45px;
+            background: white;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .logo-area span {
+            display: block;
+            font-size: 10px;
+            margin-top: 2px;
+            color: #f8d7da;
+        }
+
+        .main-title {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .sub-title {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #fbebee;
+        }
+
+        /* কিউআর কোড হোয়াইট বক্স */
+        .qr-box-wrapper {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        #qrcode canvas, #qrcode img {
+            display: block;
+            margin: 0 auto;
+            width: 180px !important;
+            height: 180px !important;
+        }
+
+        .account-label {
+            font-size: 13px;
+            margin-top: 8px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        /* ১১ ডিজিট অ্যাকাউন্ট নম্বর ঘর */
+        .account-digits {
+            display: flex;
+            justify-content: center;
+            gap: 3px;
+            background: white;
+            padding: 8px;
+            border-radius: 8px;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        .digit-box {
+            background: #ffffff;
+            color: #d11241;
+            font-size: 18px;
+            font-weight: bold;
+            width: 28px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .digit-separator {
+            color: #d11241;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        /* মাঝের হলুদ অংশ */
+        .middle-yellow {
+            background-color: #ffc107;
+            color: #000;
+            text-align: center;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        /* নিচের সাদা অংশ (উদ্যোক্তার তথ্যাবলি) */
+        .bottom-white {
+            background-color: #ffffff;
+            color: #333;
+            padding: 20px;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .info-table td {
+            padding: 6px 0;
+            font-size: 13px;
+        }
+
+        .info-label {
+            width: 28%;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .info-colon {
+            width: 4%;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .info-value {
+            width: 68%;
+            font-weight: 600;
+            color: #111;
+        }
+
+        /* একদম নিচের গাঢ় লাল ফুটার অংশ */
+        .footer-red {
+            background-color: #d11241;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 11px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* প্রিন트 করার সময় কন্ট্রোল প্যানেল লুকানোর জন্য */
         @media print {
+            .control-panel {
+                display: none;
+            }
             body {
-                background-color: white;
+                background: white;
+                padding: 0;
             }
-            .no-print {
-                display: none !important;
-            }
-            .poster-container {
-                box-shadow: none !important;
-                margin: 0 !important;
+            .poster-frame {
+                box-shadow: none;
+                border: 1px solid #000;
             }
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4">
+<body>
 
-    <!-- Input Form Section (No Print) -->
-    <div class="no-print bg-white p-6 rounded-xl shadow-md w-full max-w-[480px] mb-8 border border-gray-200">
-        <h2 class="text-lg font-bold text-gray-800 mb-4 text-center border-b pb-2">তথ্য পরিবর্তন করুন</h2>
-        <div class="space-y-3 text-sm">
-            <div>
-                <label class="block font-semibold text-gray-700 mb-1">নাম:</label>
-                <input type="text" id="inputName" value="MANJUR ALAM" oninput="updatePoster()" class="w-full border border-gray-300 rounded-lg px-3 py-2 uppercase focus:outline-none focus:ring-2 focus:ring-red-500">
-            </div>
-            <div>
-                <label class="block font-semibold text-gray-700 mb-1">দোকানের নাম:</label>
-                <input type="text" id="inputShop" value="MAHIR TELECOM" oninput="updatePoster()" class="w-full border border-gray-300 rounded-lg px-3 py-2 uppercase focus:outline-none focus:ring-2 focus:ring-red-500">
-            </div>
-            <div>
-                <label class="block font-semibold text-gray-700 mb-1">ঠিকানা:</label>
-                <input type="text" id="inputAddress" value="RAJAPALANG, Ukhiya, Cox's Bazar-4750" oninput="updatePoster()" class="w-full border border-gray-300 rounded-lg px-3 py-2 uppercase focus:outline-none focus:ring-2 focus:ring-red-500">
-            </div>
-            <div>
-                <label class="block font-semibold text-gray-700 mb-1">আইডি (ID):</label>
-                <input type="text" id="inputID" value="A609851" oninput="updatePoster()" class="w-full border border-gray-300 rounded-lg px-3 py-2 uppercase focus:outline-none focus:ring-2 focus:ring-red-500">
-            </div>
-            <div>
-                <label class="block font-semibold text-gray-700 mb-1">উদ্যোক্তা অ্যাকাউন্ট নাম্বার (১১ ডিজিট):</label>
-                <input type="text" id="inputPhone" value="01812711699" maxlength="11" oninput="updatePoster()" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
-            </div>
+    <!-- তথ্য পরিবর্তন করার কন্ট্রোল প্যানেল -->
+    <div class="control-panel">
+        <h3>উদ্যোক্তার তথ্য ও QR কোড এডিটর</h3>
+        <div class="form-group">
+            <label>নাম:</label>
+            <input type="text" id="inputName" value=" " oninput="updatePoster()">
         </div>
-
-        <div class="mt-5 flex gap-2">
-            <button onclick="downloadPDF()" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 rounded-lg shadow transition cursor-pointer text-center">
-                PDF ডাউনলোড
-            </button>
-            <button onclick="sharePDF()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg shadow transition cursor-pointer text-center">
-                শেয়ার করুন
-            </button>
+        <div class="form-group">
+            <label>দোকানের নাম:</label>
+            <input type="text" id="inputShop" value=" " oninput="updatePoster()">
         </div>
-    </div>
-
-    <!-- Poster Main Container (Exact Match to Original Poster) -->
-    <div id="poster" class="poster-container w-[480px] bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-300 flex flex-col">
+        <div class="form-group">
+            <label>ঠিকানা:</label>
+            <input type="text" id="inputAddress" value=" " oninput="updatePoster()">
+        </div>
+        <div class="form-group">
+            <label>আইডি:</label>
+            <input type="text" id="inputID" value="A609851" oninput="updatePoster()">
+        </div>
+        <div class="form-group">
+            <label>নগদ অ্যাকাউন্ট নম্বর (১১ ডিজিট):</label>
+            <input type="text" id="inputPhone" maxlength="11" value="01#########" oninput="updatePoster()">
+        </div>
         
-        <!-- Top Header Section -->
-        <div class="nagad-red pt-5 pb-6 px-6 text-center text-white relative">
-            <div class="flex justify-center items-center mb-3">
-                <div class="bg-white rounded-full px-5 py-1.5 shadow-sm inline-flex items-center gap-2">
-                    <span class="text-red-600 font-extrabold text-xl tracking-tight">নগদ</span>
-                    <span class="text-[11px] text-gray-600 font-semibold border-l pl-2 border-gray-300">ডাক বিভাগের ডিজিটাল লেনদেন</span>
+        <div class="btn-container">
+            <button class="btn btn-download" onclick="downloadPosterImage()">ডাউনলোড ছবি</button>
+            <button class="btn btn-print" onclick="window.print()">প্রিন্ট / PDF সেভ</button>
+        </div>
+    </div>
+
+    <!-- মূল পোস্টার ডিজাইন ফ্রেম -->
+    <div class="poster-frame" id="posterArea">
+        
+        <!-- ওপরের লাল অংশ -->
+        <div class="top-section">
+            <div class="header-top">
+                <div class="tagline">দেশি নগদে বেশি লাভ</div>
+                <div class="logo-area">
+                    <!-- নগদ লোগো -->
+                    <img src="https://www.nagad.com.bd/assets/images/logo.svg" alt="Nagad Logo">
+                    <span>ডাক বিভাগের ডিজিটাল লেনদেন</span>
                 </div>
             </div>
-            <h1 class="text-3xl font-extrabold tracking-wide mt-1 mb-1">নগদ উদ্যোক্তা</h1>
-            <p class="text-sm font-medium tracking-wide text-red-100">ক্যাশ আউট করতে QR কোডটি স্ক্যান করুন</p>
+
+            <div class="main-title">নগদ উদ্যোক্তা</div>
+            <div class="sub-title">ক্যাশ আউট করতে QR কোডটি স্ক্যান করুন</div>
+
+            <div class="qr-box-wrapper">
+                <div id="qrcode"></div>
+            </div>
+
+            <div class="account-label">নগদ উদ্যোক্তা একাউন্ট নাম্বার</div>
+
+            <!-- ১১ ডিজিটের আলাদা ঘর -->
+            <div class="account-digits" id="digitContainer">
+                <!-- ডায়নামিকভাবে ডিজিটগুলো এখানে জেনারেট হবে -->
+            </div>
         </div>
 
-        <!-- Middle White Card with QR Code -->
-        <div class="bg-white px-6 pt-5 pb-4 flex flex-col items-center">
-            <div class="bg-white p-3 rounded-2xl shadow-lg border border-gray-200 inline-block">
-                <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=01812711699" alt="Nagad Udyokta QR Code" class="w-52 h-52 object-contain rounded-lg">
-            </div>
-
-            <!-- Account Number Section -->
-            <div class="mt-4 text-center w-full">
-                <p class="text-xs font-semibold text-gray-700 tracking-wider mb-2">নগদ উদ্যোক্তা একাউন্ট নাম্বার</p>
-                <div id="phoneBoxes" class="flex justify-center gap-1 bg-red-700 p-2.5 rounded-xl shadow-inner text-white font-bold text-lg">
-                    <!-- Dynamically filled via JavaScript -->
-                </div>
-            </div>
+        <!-- মাঝের হলুদ অংশ -->
+        <div class="middle-yellow">
+            উদ্যোক্তার তথ্যাবলি
         </div>
 
-        <!-- Bottom Details Section -->
-        <div class="bg-gray-50 border-t border-gray-300 px-6 py-4 flex flex-col gap-2.5">
-            <h2 class="text-center font-bold text-gray-800 text-sm tracking-wide border-b border-gray-300 pb-2">উদ্যোক্তার তথ্যাবলি</h2>
-            
-            <div class="text-xs space-y-2 text-gray-700 px-2">
-                <div class="flex items-center">
-                    <span class="w-24 font-semibold text-gray-600">নাম</span>
-                    <span class="w-4 text-center font-semibold">:</span>
-                    <span id="displayName" class="font-bold text-gray-900 uppercase">MANJUR ALAM</span>
-                </div>
-                <div class="flex items-center">
-                    <span class="w-24 font-semibold text-gray-600">দোকানের নাম</span>
-                    <span class="w-4 text-center font-semibold">:</span>
-                    <span id="displayShop" class="font-bold text-gray-900 uppercase">MAHIR TELECOM</span>
-                </div>
-                <div class="flex items-center">
-                    <span class="w-24 font-semibold text-gray-600">ঠিকানা</span>
-                    <span class="w-4 text-center font-semibold">:</span>
-                    <span id="displayAddress" class="font-bold text-gray-900 uppercase">RAJAPALANG, Ukhiya, Cox's Bazar-4750</span>
-                </div>
-                <div class="flex items-center">
-                    <span class="w-24 font-semibold text-gray-600">আইডি</span>
-                    <span class="w-4 text-center font-semibold">:</span>
-                    <span id="displayID" class="font-bold text-gray-900 uppercase">A609851</span>
-                </div>
-            </div>
+        <!-- নিচের সাদা অংশ -->
+        <div class="bottom-white">
+            <table class="info-table">
+                <tr>
+                    <td class="info-label">নাম</td>
+                    <td class="info-colon">:</td>
+                    <td class="info-value" id="displayName"> </td>
+                </tr>
+                <tr>
+                    <td class="info-label">দোকানের নাম</td>
+                    <td class="info-colon">:</td>
+                    <td class="info-value" id="displayShop"> </td>
+                </tr>
+                <tr>
+                    <td class="info-label">ঠিকানা</td>
+                    <td class="info-colon">:</td>
+                    <td class="info-value" id="displayAddress"> </td>
+                </tr>
+                <tr>
+                    <td class="info-label">আইডি</td>
+                    <td class="info-colon">:</td>
+                    <td class="info-value" id="displayID">A609852</td>
+                </tr>
+            </table>
+        </div>
 
-            <!-- Footer Website & Helpline -->
-            <div class="mt-2 pt-2.5 border-t border-gray-300 text-center text-[11px] text-gray-600 font-medium flex justify-center items-center gap-2">
-                <span>nagad.com.bd</span>
-                <span>|</span>
-                <span class="flex items-center gap-1">📞 16167 | 096 096 16167</span>
-            </div>
+        <!-- একদম নিচের গাঢ় লাল অংশ -->
+        <div class="footer-red">
+            <span>nagad.com.bd</span> | <span>📞 16167</span> | <span>096 096 16167</span>
         </div>
 
     </div>
 
-    <!-- JavaScript for Live Input & PDF -->
+    <!-- html2canvas লাইব্রেরি ইমেজ ডাউনলোড করার জন্য -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <script>
+        // কিউআর কোড জেনারেট করার ফাংশন
+        let qrcodeObj = new QRCode(document.getElementById("qrcode"), {
+            text: "01#########",
+            width: 180,
+            height: 180,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
         function updatePoster() {
+            // ইনপুট ভ্যালু সংগ্রহ
             const name = document.getElementById('inputName').value;
             const shop = document.getElementById('inputShop').value;
             const address = document.getElementById('inputAddress').value;
             const id = document.getElementById('inputID').value;
-            let phone = document.getElementById('inputPhone').value;
+            let phone = document.getElementById('inputPhone').value.replace(/\D/g, ''); // শুধু সংখ্যা ফিল্টার
 
+            if(phone.length > 11) phone = phone.slice(0, 11);
+
+            // টেক্সট আপডেট
             document.getElementById('displayName').innerText = name;
             document.getElementById('displayShop').innerText = shop;
             document.getElementById('displayAddress').innerText = address;
             document.getElementById('displayID').innerText = id;
 
-            // Format phone boxes
-            let phoneContainer = document.getElementById('phoneBoxes');
-            phoneContainer.innerHTML = '';
-            
-            for (let i = 0; i < phone.length; i++) {
-                let span = document.createElement('span');
-                span.className = "bg-white text-gray-900 font-bold text-lg px-2 py-0.5 rounded";
-                span.innerText = phone[i];
-                phoneContainer.appendChild(span);
-                
-                // Add dash after 3rd and 7th digit if length permits
+            // ১১ ডিজিট ঘর ফরম্যাটিং (যেমন: 01#-####-####)
+            let digitContainer = document.getElementById('digitContainer');
+            digitContainer.innerHTML = '';
+
+            for (let i = 0; i < 11; i++) {
+                let char = phone[i] !== undefined ? phone[i] : '0';
+                let box = document.createElement('div');
+                box.className = 'digit-box';
+                box.innerText = char;
+                digitContainer.appendChild(box);
+
+                // নির্দিষ্ট পজিশনে হাইফেন বা স্পেস যোগ করা (যেমন ৩য় এবং ৭ম ঘরের পরে)
                 if (i === 2 || i === 6) {
-                    let dash = document.createElement('span');
-                    dash.className = "text-white font-bold text-lg flex items-center";
-                    dash.innerText = "-";
-                    phoneContainer.appendChild(dash);
+                    let sep = document.createElement('div');
+                    sep.className = 'digit-separator';
+                    sep.innerText = '-';
+                    digitContainer.appendChild(sep);
                 }
             }
 
-            // Update QR Code dynamically based on phone number
-            if(phone.length >= 11) {
-                document.getElementById('qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${phone}`;
-            }
+            // QR কোড আপডেট (নগদ পেমেন্ট ফরম্যাট অনুযায়ী ডায়নামিক ডাটা এনকোড করা যায়)
+            let qrText = phone ? phone : "01#########";
+            qrcodeObj.clear();
+            qrcodeObj.makeCode(qrText);
         }
 
-        // Run once on load to initialize
-        updatePoster();
+        // ছবি ডাউনলোড করার ফাংশন
+        function downloadPosterImage() {
+            const controlPanel = document.querySelector('.control-panel');
+            controlPanel.style.display = 'none'; // ডাউনলোডের সময় কন্ট্রোল প্যানেল লুকিয়ে রাখা
 
-        function downloadPDF() {
-            const element = document.getElementById('poster');
-            const opt = {
-                margin:       0.2,
-                filename:     'Nagad_Udyokta_QR.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
-                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-            };
-            html2pdf().from(element).set(opt).save();
+            const poster = document.getElementById('posterArea');
+            html2canvas(poster, { scale: 2, useCORS: true }).then(canvas => {
+                let link = document.createElement('a');
+                link.download = 'nagad-qr-code.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                controlPanel.style.display = 'block'; // আবার ফিরিয়ে আনা
+            });
         }
 
-        async function sharePDF() {
-            const element = document.getElementById('poster');
-            const opt = {
-                margin:       0.2,
-                filename:     'Nagad_Udyokta_QR.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
-                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-            };
-
-            if (navigator.share) {
-                try {
-                    html2pdf().from(element).set(opt).outputPdf('blob').then(async (pdfBlob) => {
-                        const file = new File([pdfBlob], "Nagad_Udyokta_QR.pdf", { type: "application/pdf" });
-                        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                            await navigator.share({
-                                title: 'নগদ উদ্যোক্তা QR কোড',
-                                text: 'নগদ উদ্যোক্তা পোস্টার',
-                                files: [file],
-                            });
-                        } else {
-                            alert('আপনার ব্রাউজার ফাইল শেয়ার সমর্থন করে না।');
-                        }
-                    });
-                } catch (error) {
-                    console.log('Error sharing:', error);
-                }
-            } else {
-                alert('ওয়েব শেয়ার এপিআই এই ব্রাউজারে কাজ করছে না।');
-            }
+        // পেজ লোড হওয়ার পর ইনিশিয়াল রান
+        window.onload = function() {
+            updatePoster();
         }
     </script>
 </body>
