@@ -3,406 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>নগদ উদ্যোক্তা QR কোড জেনারেটর</title>
-    <!-- QR Code Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <title>নগদ উদ্যোক্তা QR কোড</title>
+    <!-- Tailwind CSS for modern layout styling -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- html2pdf.js for direct PDF download and sharing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap');
         body {
-            font-family: 'SolaimanLipi', Arial, sans-serif;
+            font-family: 'Hind Siliguri', sans-serif;
             background-color: #f0f2f5;
-            margin: 0;
-            padding: 10px;
         }
-        .main-wrapper {
-            max-width: 480px;
-            margin: 0 auto;
+        .nagad-red {
+            background-color: #d11d27;
         }
-        /* ইনপুট ফর্ম ডিজাইন */
-        .form-card {
-            background: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .form-card h3 {
-            margin-top: 0;
-            color: #ec1c24;
-            text-align: center;
-            font-size: 18px;
-        }
-        .form-group {
-            margin-bottom: 10px;
-        }
-        label {
-            display: block;
-            margin-bottom: 3px;
-            font-weight: bold;
-            font-size: 14px;
-            color: #333;
-        }
-        input {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        
-        /* সেইভ বা ডাউনলোড বাটন স্টাইল */
-        .download-btn {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        .download-btn:hover {
-            background-color: #218838;
-        }
-
-        /* নগদ অফিশিয়াল পোস্টার ডিজাইন */
-        .nagad-card {
-            background: #ec1c24;
-            color: white;
-            border-radius: 8px;
-            padding: 12px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            position: relative;
-            box-sizing: border-box;
-        }
-        .header-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 5px;
-        }
-        .header-title-box {
-            text-align: left;
-        }
-        .header-title {
-            font-size: 22px;
-            font-weight: bold;
-            color: white;
-        }
-        /* নগদ লোগো এবং নিচে সাব-টেক্সট */
-        .nagad-logo-container {
-            text-align: right;
-        }
-        .nagad-logo-img {
-            height: 38px;
-            object-fit: contain;
-            background: #fff;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-        .nagad-sub-slogan {
-            font-size: 9px;
-            color: white;
-            margin-top: 3px;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-        .sub-title {
-            font-size: 16px;
-            margin: 8px 0 10px 0;
-            font-weight: bold;
-        }
-        .qr-box {
-            background: white;
-            padding: 8px;
-            display: inline-block;
-            border-radius: 6px;
-            margin-bottom: 8px;
-            box-sizing: border-box;
-        }
-        .account-title {
-            font-size: 15px;
-            margin: 5px 0 8px 0;
-            font-weight: bold;
-        }
-        /* ৪ ডিজিট পর পর হাইফেনসহ ১১ ডিজিট বক্স */
-        .digits-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2px;
-            margin-bottom: 12px;
-            flex-wrap: nowrap;
-        }
-        .digit-box {
-            background: white;
-            color: #ec1c24;
-            font-size: 19px;
-            font-weight: bold;
-            width: 24px;
-            height: 34px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 3px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-        }
-        .hyphen {
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            padding: 0 1px;
-        }
-        .info-section-title {
-            background: #ffc20e;
-            color: #000;
-            padding: 5px;
-            font-weight: bold;
-            text-align: center;
-            font-size: 14px;
-        }
-        /* নিচের তথ্য ও বক্স সেকশন */
-        .info-box-wrapper {
-            background: #fff;
-            color: #000;
-            padding: 10px;
-            text-align: left;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
-        }
-        .info-details {
-            font-size: 13px;
-            line-height: 1.5;
-            flex-grow: 1;
-            padding-left: 5px;
-        }
-        .info-row {
-            display: flex;
-            margin-bottom: 2px;
-        }
-        .info-label {
-            width: 75px;
-            font-weight: bold;
-        }
-        .info-colon {
-            width: 12px;
-            font-weight: bold;
-        }
-        .info-value {
-            flex-grow: 1;
-            word-break: break-all;
-        }
-        /* বাম পাশের স্কয়ার বক্স */
-        .left-square-box {
-            width: 40px;
-            height: 50px;
-            border: 2px solid #333;
-            flex-shrink: 0;
-        }
-        /* ডান পাশের কর্নারে "দেশি নগদে বেশি লাভ" স্টাইলিশ টেক্সট */
-        .left-slogan-box {
-            text-align: left;
-            flex-shrink: 0;
-            margin-left: 8px;
-            background: #fff1f2;
-            border: 1.5px dashed #ec1c24;
-            padding: 6px 8px;
-            border-radius: 6px;
-            max-width: 110px;
-        }
-        .slogan-main {
-            font-size: 12px;
-            color: #ec1c24;
-            font-weight: bold;
-            line-height: 1.2;
-            text-align: center;
-        }
-        .footer-text {
-            margin-top: 8px;
-            font-size: 11px;
-            padding-top: 4px;
-            background: #ec1c24;
-            color: white;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.3);
-        }
-
-        /* প্রিন্ট করার সময় শুধু পোস্টারটি দেখানোর জন্য এবং ফর্ম ও বাটন লুকাতে সিএসএস */
         @media print {
             body {
                 background-color: white;
-                padding: 0;
             }
-            .form-card, .download-btn {
+            .no-print {
                 display: none !important;
             }
-            .main-wrapper {
-                max-width: 100%;
-            }
-            .nagad-card {
-                box-shadow: none;
-                border-radius: 0;
+            .poster-container {
+                box-shadow: none !important;
+                margin: 0 !important;
+                width: 100% !important;
             }
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
 
-<div class="main-wrapper">
-    <!-- ইনপুট ফর্ম সেকশন -->
-    <div class="form-card">
-        <h3>উদ্যোক্তার তথ্য পূরণ করুন</h3>
-        <div class="form-group">
-            <label>উদ্যোক্তার নাম:</label>
-            <input type="text" id="inputName" placeholder="নাম এখানে লিখুন" oninput="updateData()">
-        </div>
-        <div class="form-group">
-            <label>দোকানের নাম:</label>
-            <input type="text" id="inputShop" placeholder="দোকানের নাম এখানে লিখুন" oninput="updateData()">
-        </div>
-        <div class="form-group">
-            <label>ঠিকানা:</label>
-            <input type="text" id="inputAddress" placeholder="ঠিকানা এখানে লিখুন" oninput="updateData()">
-        </div>
-        <div class="form-group">
-            <label>আইডি (ID):</label>
-            <input type="text" id="inputID" placeholder="আইডি লিখুন" oninput="updateData()">
-        </div>
-        <div class="form-group">
-            <label>উদ্যোক্তা অ্যাকাউন্ট নাম্বার (১১ ডিজিট):</label>
-            <input type="text" id="inputNumber" maxlength="11" placeholder="017xxxxxxxx" oninput="updateData()">
-        </div>
-        
-        <!-- পিডিএফ সেইভ বা ডাউনলোড বাটন -->
-        <button class="download-btn" onclick="saveAsPDF()">📥 পোস্টার PDF হিসেবে সেইভ করুন</button>
+    <!-- Action Buttons Bar (Download, Share, Save) -->
+    <div class="no-print mb-6 flex flex-wrap gap-3 justify-center">
+        <button onclick="downloadPDF()" class="bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2.5 rounded-lg shadow-md flex items-center gap-2 transition duration-200 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            PDF ডাউনলোড করুন
+        </button>
+        <button onclick="sharePDF()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-lg shadow-md flex items-center gap-2 transition duration-200 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+            শেয়ার করুন
+        </button>
+        <button onclick="window.print()" class="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-5 py-2.5 rounded-lg shadow-md flex items-center gap-2 transition duration-200 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+            </svg>
+            প্রিন্ট / সেভ
+        </button>
     </div>
 
-    <!-- নগদ অফিশিয়াল পোস্টার প্রিভিউ সেকশন -->
-    <div class="nagad-card" id="posterArea">
-        <div class="header-section">
-            <div class="header-title-box">
-                <div class="header-title">নগদ উদ্যোক্তা</div>
-            </div>
-            <!-- ডান কর্নারে নগদ লোগো এবং ডিজিটাল লেনদেন টেক্সট -->
-            <div class="nagad-logo-container">
-                <img src="https://www.vectorlogo.zone/logos/nagad/nagad-ar21.svg" alt="Nagad Logo" class="nagad-logo-img">
-                <div class="nagad-sub-slogan">বাংলাদেশ ডাক বিভাগের ডিজিটাল লেনদেন</div>
-            </div>
-        </div>
+    <!-- Poster Main Container -->
+    <div id="poster" class="poster-container w-[480px] bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-300 flex flex-col">
         
-        <div class="sub-title">ক্যাশ আউট করতে QR কোডটি স্ক্যান করুন</div>
-        
-        <div class="qr-box">
-            <div id="qrcode"></div>
-        </div>
-
-        <div class="account-title">নগদ উদ্যোক্তা অ্যাকাউন্ট নাম্বার</div>
-        
-        <!-- ৪ ডিজিট পর পর হাইফেনসহ ১১ ডিজিট বক্স -->
-        <div class="digits-container" id="digitBoxes">
-            <!-- জাভাস্ক্রিপ্ট দিয়ে ডাইনামিক বসবে -->
-        </div>
-
-        <div class="info-section-title">নগদ উদ্যোক্তার তথ্যাবলি</div>
-        
-        <!-- নিচের তথ্য সেকশন -->
-        <div class="info-box-wrapper">
-            <!-- বাম পাশের স্কয়ার বক্স -->
-            <div class="left-square-box"></div>
-
-            <div class="info-details">
-                <div class="info-row">
-                    <span class="info-label">নাম</span><span class="info-colon">:</span><span class="info-value" id="dispName"></span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">দোকানের নাম</span><span class="info-colon">:</span><span class="info-value" id="dispShop"></span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">ঠিকানা</span><span class="info-colon">:</span><span class="info-value" id="dispAddress"></span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">আইডি</span><span class="info-colon">:</span><span class="info-value" id="dispID"></span>
+        <!-- Top Header Section -->
+        <div class="nagad-red pt-5 pb-6 px-6 text-center text-white relative">
+            <div class="flex justify-center items-center mb-2">
+                <div class="bg-white rounded-full px-4 py-1.5 shadow-sm flex items-center gap-2">
+                    <span class="text-orange-600 font-extrabold text-xl tracking-tight">নগদ</span>
+                    <span class="text-xs text-gray-600 font-semibold border-l pl-2 border-gray-300">ডাক বিভাগের ডিজিটাল লেনদেন</span>
                 </div>
             </div>
+            <h1 class="text-3xl font-extrabold tracking-wide mt-2 mb-1">নগদ উদ্যোক্তা</h1>
+            <p class="text-sm font-medium tracking-wide text-red-100">ক্যাশ আউট করতে QR কোডটি স্ক্যান করুন</p>
+        </div>
 
-            <!-- ডান কর্নারে "দেশি নগদে বেশি লাভ" ডিজাইন -->
-            <div class="left-slogan-box">
-                <div class="slogan-main">দেশি নগদে<br>বেশি লাভ</div>
+        <!-- Middle White Card with QR Code -->
+        <div class="bg-white px-6 py-5 flex flex-col items-center">
+            <div class="bg-white p-3 rounded-2xl shadow-lg border border-gray-200 inline-block">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=01812711699" alt="Nagad Udyokta QR Code" class="w-56 h-56 object-contain rounded-lg">
+            </div>
+
+            <!-- Account Number Section -->
+            <div class="mt-4 text-center w-full">
+                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">নগদ উদ্যোক্তা একাউন্ট নাম্বার</p>
+                <div class="flex justify-center gap-1 bg-red-700 p-2.5 rounded-xl shadow-inner">
+                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">0</span>
+                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">1</span>
+                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">8</span>
+                    <span class="text-white font-bold text-lg flex items-center">-</span>
+                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">1</span>
+                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">2</span>
+                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">7</span>
+                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">1</span>
+                    <span class="text-white font-bold text-lg flex items-center">-</span>
+                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">1</span>
+                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">6</span>
+                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">9</span>
+                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">9</span>
+                </div>
             </div>
         </div>
 
-        <div class="footer-text">
-            nagad.com.bd &nbsp;|&nbsp; 📞 16167 / 096 096 16167
+        <!-- Bottom Details Section -->
+        <div class="bg-gray-50 border-t border-gray-200 px-6 py-5 flex flex-col gap-3">
+            <h2 class="text-center font-bold text-gray-800 text-sm tracking-wide border-b border-gray-200 pb-2">উদ্যোক্তার তথ্যাবলি</h2>
+            
+            <div class="text-xs space-y-2 text-gray-700">
+                <div class="flex">
+                    <span class="w-24 font-semibold text-gray-600">নাম</span>
+                    <span class="w-4 text-center">:</span>
+                    <span class="font-bold text-gray-900 uppercase">MANJUR ALAM</span>[span_1](start_span)[span_1](end_span)
+                </div>
+                <div class="flex">
+                    <span class="w-24 font-semibold text-gray-600">দোকানের নাম</span>
+                    <span class="w-4 text-center">:</span>
+                    <span class="font-bold text-gray-900 uppercase">MAHIR TELECOM</span>[span_2](start_span)[span_2](end_span)
+                </div>
+                <div class="flex">
+                    <span class="w-24 font-semibold text-gray-600">ঠিকানা</span>
+                    <span class="w-4 text-center">:</span>
+                    <span class="font-bold text-gray-900 uppercase">RAJAPALANG, Ukhiya, Cox's Bazar-4750</span>[span_3](start_span)[span_3](end_span)
+                </div>
+                <div class="flex">
+                    <span class="w-24 font-semibold text-gray-600">আইডি</span>
+                    <span class="w-4 text-center">:</span>
+                    <span class="font-bold text-gray-900 uppercase">A609851</span>[span_4](start_span)[span_4](end_span)
+                </div>
+            </div>
+
+            <!-- Footer Website & Helpline -->
+            <div class="mt-3 pt-3 border-t border-gray-200 text-center text-[11px] text-gray-500 font-medium flex justify-center items-center gap-3">
+                <span>nagad.com.bd</span>[span_5](start_span)[span_5](end_span)
+                <span>|</span>
+                <span class="flex items-center gap-1">📞 16167 | 096 096 16167</span>[span_6](start_span)[span_6](end_span)
+            </div>
         </div>
+
     </div>
-</div>
 
-<script>
-    function updateData() {
-        const name = document.getElementById('inputName').value;
-        const shop = document.getElementById('inputShop').value;
-        const address = document.getElementById('inputAddress').value;
-        const id = document.getElementById('inputID').value;
-        const number = document.getElementById('inputNumber').value.trim();
+    <!-- JavaScript Functions -->
+    <script>
+        function downloadPDF() {
+            const element = document.getElementById('poster');
+            const opt = {
+                margin:       0.2,
+                filename:     'Nagad_Udyokta_QR_01812711699.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().from(element).set(opt).save();
+        }
 
-        document.getElementById('dispName').innerText = name;
-        document.getElementById('dispShop').innerText = shop;
-        document.getElementById('dispAddress').innerText = address;
-        document.getElementById('dispID').innerText = id;
+        async function sharePDF() {
+            const element = document.getElementById('poster');
+            const opt = {
+                margin:       0.2,
+                filename:     'Nagad_Udyokta_QR_01812711699.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
 
-        // ১১ ডিজিট ৪ ঘর পর পর হাইফেনসহ সাজানো
-        const digitContainer = document.getElementById('digitBoxes');
-        digitContainer.innerHTML = "";
-        
-        for (let i = 0; i < 11; i++) {
-            const digitBox = document.createElement('div');
-            digitBox.className = 'digit-box';
-            digitBox.innerText = number[i] || "";
-            digitContainer.appendChild(digitBox);
-
-            // ৪ ও ৭ নম্বর ঘরের পরে হাইফেন (-) যোগ করা
-            if (i === 3 || i === 7) {
-                const hyphen = document.createElement('div');
-                hyphen.className = 'hyphen';
-                hyphen.innerText = "-";
-                digitContainer.appendChild(hyphen);
+            if (navigator.share) {
+                try {
+                    html2pdf().from(element).set(opt).outputPdf('blob').then(async (pdfBlob) => {
+                        const file = new File([pdfBlob], "Nagad_Udyokta_QR_01812711699.pdf", { type: "application/pdf" });
+                        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                            await navigator.share({
+                                title: 'নগদ উদ্যোক্তা QR কোড',
+                                text: 'নগদ উদ্যোক্তা একাউন্ট নাম্বার: 018-1271-1699',
+                                files: [file],
+                            });
+                        } else {
+                            alert('আপনার ব্রাউজার ফাইল শেয়ার সমর্থন করে না।');
+                        }
+                    });
+                } catch (error) {
+                    console.log('Error sharing:', error);
+                }
+            } else {
+                alert('ওয়েব শেয়ার এপিআই এই ব্রাউজারে কাজ করছে না।');
             }
         }
-
-        // QR কোড লজিক: নাম্বার লেখা থাকলে কেবল QR তৈরি হবে, না থাকলে খালি থাকবে
-        const qrElement = document.getElementById('qrcode');
-        qrElement.innerHTML = "";
-
-        if (number.length > 0) {
-            const qrData = `Nagad Merchant: ${number}, Name: ${name}, Shop: ${shop}, ID: ${id}`;
-            new QRCode(qrElement, {
-                text: qrData,
-                width: 115,
-                height: 115,
-                colorDark : "#000000",
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.H
-            });
-        }
-    }
-
-    // পিডিএফ হিসেবে সেইভ বা প্রিন্ট করার ফাংশন
-    function saveAsPDF() {
-        window.print();
-    }
-
-    window.onload = function() {
-        updateDate(); // নামের মিল রাখতে ফাংশন কল
-        updateData();
-    };
-</script>
-
+    </script>
 </body>
-</html>            
+</html>
