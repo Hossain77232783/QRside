@@ -129,7 +129,7 @@
         }
 
         .logo-area img {
-            height: 32px;
+            height: 30px;
             display: block;
             margin: 0 auto;
         }
@@ -294,15 +294,15 @@
         <h3>উদ্যোক্তার তথ্য ও QR কোড এডিটর</h3>
         <div class="form-group">
             <label>নাম:</label>
-            <input type="text" id="inputName" value=" " oninput="updatePoster()">
+            <input type="text" id="inputName" value="MANJUR ALAM" oninput="updatePoster()">
         </div>
         <div class="form-group">
             <label>দোকানের নাম:</label>
-            <input type="text" id="inputShop" value=" " oninput="updatePoster()">
+            <input type="text" id="inputShop" value="MAHIR TELECOM" oninput="updatePoster()">
         </div>
         <div class="form-group">
             <label>ঠিকানা:</label>
-            <input type="text" id="inputAddress" value=" " oninput="updatePoster()">
+            <input type="text" id="inputAddress" value="RAJAPALANG, Ukhiya, Cox'S Bazar-4750" oninput="updatePoster()">
         </div>
         <div class="form-group">
             <label>আইডি:</label>
@@ -310,7 +310,7 @@
         </div>
         <div class="form-group">
             <label>নগদ অ্যাকাউন্ট নম্বর (১১ ডিজিট):</label>
-            <input type="text" id="inputPhone" maxlength="11" value="01#########" oninput="updatePoster()">
+            <input type="text" id="inputPhone" maxlength="11" value="01812711699" oninput="updatePoster()">
         </div>
         
         <div class="btn-container">
@@ -325,10 +325,10 @@
         <!-- ওপরের লাল অংশ -->
         <div class="top-section">
             <div class="header-top">
-                <div class="Bold tagline">দেশি নগদে বেশি লাভ</div>
+                <div class="tagline">দেশি নগদে বেশি লাভ</div>
                 <div class="logo-area">
-                    <!-- বিকল্প সরাসরি নির্ভরযোগ্য লোগো সোর্স ব্যবহার করা হয়েছে -->
-                    <img src="https://seeklogo.com/images/N/nagad-logo-355240/seeklogo.com.png" alt="Nagad Logo" crossorigin="anonymous">
+                    <!-- ইনলাইন বেস সোর্স লোগো (100% লোড হবে) -->
+                    <img src="https://www.vectorlogo.zone/logos/nagad/nagad-ar21.svg" alt="Nagad Logo">
                     <span>ডাক বিভাগের ডিজিটাল লেনদেন</span>
                 </div>
             </div>
@@ -357,17 +357,17 @@
                 <tr>
                     <td class="info-label">নাম</td>
                     <td class="info-colon">:</td>
-                    <td class="info-value" id="displayName"> </td>
+                    <td class="info-value" id="displayName">MANJUR ALAM</td>
                 </tr>
                 <tr>
                     <td class="info-label">দোকানের নাম</td>
                     <td class="info-colon">:</td>
-                    <td class="info-value" id="displayShop"> </td>
+                    <td class="info-value" id="displayShop">MAHIR TELECOM</td>
                 </tr>
                 <tr>
                     <td class="info-label">ঠিকানা</td>
                     <td class="info-colon">:</td>
-                    <td class="info-value" id="displayAddress"> </td>
+                    <td class="info-value" id="displayAddress">RAJAPALANG, Ukhiya, Cox'S Bazar-4750</td>
                 </tr>
                 <tr>
                     <td class="info-label">আইডি</td>
@@ -389,7 +389,7 @@
 
     <script>
         let qrcodeObj = new QRCode(document.getElementById("qrcode"), {
-            text: "018########",
+            text: "01812711699",
             width: 180,
             height: 180,
             colorDark : "#000000",
@@ -429,7 +429,7 @@
                 }
             }
 
-            let qrText = phone ? phone : "01#########";
+            let qrText = phone ? phone : "01812711699";
             qrcodeObj.clear();
             qrcodeObj.makeCode(qrText);
         }
