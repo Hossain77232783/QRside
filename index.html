@@ -1,12 +1,14 @@
+
+```html
 <!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>নগদ উদ্যোক্তা QR কোড</title>
-    <!-- Tailwind CSS for modern layout styling -->
+    <title>নগদ উদ্যোক্তা QR কোড জেনারেটর</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- html2pdf.js for direct PDF download and sharing -->
+    <!-- html2pdf.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap');
@@ -27,33 +29,46 @@
             .poster-container {
                 box-shadow: none !important;
                 margin: 0 !important;
-                width: 100% !important;
             }
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4">
 
-    <!-- Action Buttons Bar (Download, Share, Save) -->
-    <div class="no-print mb-6 flex flex-wrap gap-3 justify-center">
-        <button onclick="downloadPDF()" class="bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2.5 rounded-lg shadow-md flex items-center gap-2 transition duration-200 cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            PDF ডাউনলোড করুন
-        </button>
-        <button onclick="sharePDF()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-lg shadow-md flex items-center gap-2 transition duration-200 cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-            </svg>
-            শেয়ার করুন
-        </button>
-        <button onclick="window.print()" class="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-5 py-2.5 rounded-lg shadow-md flex items-center gap-2 transition duration-200 cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-            </svg>
-            প্রিন্ট / সেভ
-        </button>
+    <!-- Input Form Section (No Print) -->
+    <div class="no-print bg-white p-6 rounded-xl shadow-md w-full max-w-[480px] mb-8 border border-gray-200">
+        <h2 class="text-lg font-bold text-gray-800 mb-4 text-center border-b pb-2">তথ্য পরিবর্তন করুন</h2>
+        <div class="space-y-3 text-sm">
+            <div>
+                <label class="block font-semibold text-gray-700 mb-1">নাম:</label>
+                <input type="text" id="inputName" value="MANJUR ALAM" oninput="updatePoster()" class="w-full border border-gray-300 rounded-lg px-3 py-2 uppercase focus:outline-none focus:ring-2 focus:ring-red-500">
+            </div>
+            <div>
+                <label class="block font-semibold text-gray-700 mb-1">দোকানের নাম:</label>
+                <input type="text" id="inputShop" value="MAHIR TELECOM" oninput="updatePoster()" class="w-full border border-gray-300 rounded-lg px-3 py-2 uppercase focus:outline-none focus:ring-2 focus:ring-red-500">
+            </div>
+            <div>
+                <label class="block font-semibold text-gray-700 mb-1">ঠিকানা:</label>
+                <input type="text" id="inputAddress" value="RAJAPALANG, Ukhiya, Cox's Bazar-4750" oninput="updatePoster()" class="w-full border border-gray-300 rounded-lg px-3 py-2 uppercase focus:outline-none focus:ring-2 focus:ring-red-500">
+            </div>
+            <div>
+                <label class="block font-semibold text-gray-700 mb-1">আইডি (ID):</label>
+                <input type="text" id="inputID" value="A609851" oninput="updatePoster()" class="w-full border border-gray-300 rounded-lg px-3 py-2 uppercase focus:outline-none focus:ring-2 focus:ring-red-500">
+            </div>
+            <div>
+                <label class="block font-semibold text-gray-700 mb-1">উদ্যোক্তা অ্যাকাউন্ট নাম্বার (১১ ডিজিট):</label>
+                <input type="text" id="inputPhone" value="01812711699" maxlength="11" oninput="updatePoster()" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+            </div>
+        </div>
+
+        <div class="mt-5 flex gap-2">
+            <button onclick="downloadPDF()" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 rounded-lg shadow transition cursor-pointer text-center">
+                PDF ডাউনলোড
+            </button>
+            <button onclick="sharePDF()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg shadow transition cursor-pointer text-center">
+                শেয়ার করুন
+            </button>
+        </div>
     </div>
 
     <!-- Poster Main Container -->
@@ -74,26 +89,14 @@
         <!-- Middle White Card with QR Code -->
         <div class="bg-white px-6 py-5 flex flex-col items-center">
             <div class="bg-white p-3 rounded-2xl shadow-lg border border-gray-200 inline-block">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=01812711699" alt="Nagad Udyokta QR Code" class="w-56 h-56 object-contain rounded-lg">
+                <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=01812711699" alt="Nagad Udyokta QR Code" class="w-56 h-56 object-contain rounded-lg">
             </div>
 
             <!-- Account Number Section -->
             <div class="mt-4 text-center w-full">
                 <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">নগদ উদ্যোক্তা একাউন্ট নাম্বার</p>
-                <div class="flex justify-center gap-1 bg-red-700 p-2.5 rounded-xl shadow-inner">
-                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">0</span>
-                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">1</span>
-                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">8</span>
-                    <span class="text-white font-bold text-lg flex items-center">-</span>
-                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">1</span>
-                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">2</span>
-                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">7</span>
-                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">1</span>
-                    <span class="text-white font-bold text-lg flex items-center">-</span>
-                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">1</span>
-                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">6</span>
-                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">9</span>
-                    <span class="bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded">9</span>
+                <div id="phoneBoxes" class="flex justify-center gap-1 bg-red-700 p-2.5 rounded-xl shadow-inner text-white font-bold text-lg">
+                    <!-- Dynamically filled via JavaScript -->
                 </div>
             </div>
         </div>
@@ -106,42 +109,82 @@
                 <div class="flex">
                     <span class="w-24 font-semibold text-gray-600">নাম</span>
                     <span class="w-4 text-center">:</span>
-                    <span class="font-bold text-gray-900 uppercase">MANJUR ALAM</span>[span_1](start_span)[span_1](end_span)
+                    <span id="displayName" class="font-bold text-gray-900 uppercase">MANJUR ALAM</span>
                 </div>
                 <div class="flex">
                     <span class="w-24 font-semibold text-gray-600">দোকানের নাম</span>
                     <span class="w-4 text-center">:</span>
-                    <span class="font-bold text-gray-900 uppercase">MAHIR TELECOM</span>[span_2](start_span)[span_2](end_span)
+                    <span id="displayShop" class="font-bold text-gray-900 uppercase">MAHIR TELECOM</span>
                 </div>
                 <div class="flex">
                     <span class="w-24 font-semibold text-gray-600">ঠিকানা</span>
                     <span class="w-4 text-center">:</span>
-                    <span class="font-bold text-gray-900 uppercase">RAJAPALANG, Ukhiya, Cox's Bazar-4750</span>[span_3](start_span)[span_3](end_span)
+                    <span id="displayAddress" class="font-bold text-gray-900 uppercase">RAJAPALANG, Ukhiya, Cox's Bazar-4750</span>
                 </div>
                 <div class="flex">
                     <span class="w-24 font-semibold text-gray-600">আইডি</span>
                     <span class="w-4 text-center">:</span>
-                    <span class="font-bold text-gray-900 uppercase">A609851</span>[span_4](start_span)[span_4](end_span)
+                    <span id="displayID" class="font-bold text-gray-900 uppercase">A609851</span>
                 </div>
             </div>
 
             <!-- Footer Website & Helpline -->
             <div class="mt-3 pt-3 border-t border-gray-200 text-center text-[11px] text-gray-500 font-medium flex justify-center items-center gap-3">
-                <span>nagad.com.bd</span>[span_5](start_span)[span_5](end_span)
+                <span>nagad.com.bd</span>
                 <span>|</span>
-                <span class="flex items-center gap-1">📞 16167 | 096 096 16167</span>[span_6](start_span)[span_6](end_span)
+                <span class="flex items-center gap-1">📞 16167 | 096 096 16167</span>
             </div>
         </div>
 
     </div>
 
-    <!-- JavaScript Functions -->
+    <!-- JavaScript for Live Input & PDF -->
     <script>
+        function updatePoster() {
+            const name = document.getElementById('inputName').value;
+            const shop = document.getElementById('inputShop').value;
+            const address = document.getElementById('inputAddress').value;
+            const id = document.getElementById('inputID').value;
+            let phone = document.getElementById('inputPhone').value;
+
+            document.getElementById('displayName').innerText = name;
+            document.getElementById('displayShop').innerText = shop;
+            document.getElementById('displayAddress').innerText = address;
+            document.getElementById('displayID').innerText = id;
+
+            // Format phone boxes
+            let phoneContainer = document.getElementById('phoneBoxes');
+            phoneContainer.innerHTML = '';
+            
+            for (let i = 0; i < phone.length; i++) {
+                let span = document.createElement('span');
+                span.className = "bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded";
+                span.innerText = phone[i];
+                phoneContainer.appendChild(span);
+                
+                // Add dash after 3rd and 7th digit if length permits
+                if (i === 2 || i === 6) {
+                    let dash = document.createElement('span');
+                    dash.className = "text-white font-bold text-lg flex items-center";
+                    dash.innerText = "-";
+                    phoneContainer.appendChild(dash);
+                }
+            }
+
+            // Update QR Code dynamically based on phone number
+            if(phone.length >= 11) {
+                document.getElementById('qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${phone}`;
+            }
+        }
+
+        // Run once on load to initialize
+        updatePoster();
+
         function downloadPDF() {
             const element = document.getElementById('poster');
             const opt = {
                 margin:       0.2,
-                filename:     'Nagad_Udyokta_QR_01812711699.pdf',
+                filename:     'Nagad_Udyokta_QR.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2, useCORS: true },
                 jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
@@ -153,7 +196,7 @@
             const element = document.getElementById('poster');
             const opt = {
                 margin:       0.2,
-                filename:     'Nagad_Udyokta_QR_01812711699.pdf',
+                filename:     'Nagad_Udyokta_QR.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2, useCORS: true },
                 jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
@@ -162,11 +205,11 @@
             if (navigator.share) {
                 try {
                     html2pdf().from(element).set(opt).outputPdf('blob').then(async (pdfBlob) => {
-                        const file = new File([pdfBlob], "Nagad_Udyokta_QR_01812711699.pdf", { type: "application/pdf" });
+                        const file = new File([pdfBlob], "Nagad_Udyokta_QR.pdf", { type: "application/pdf" });
                         if (navigator.canShare && navigator.canShare({ files: [file] })) {
                             await navigator.share({
                                 title: 'নগদ উদ্যোক্তা QR কোড',
-                                text: 'নগদ উদ্যোক্তা একাউন্ট নাম্বার: 018-1271-1699',
+                                text: 'নগদ উদ্যোক্তা পোস্টার',
                                 files: [file],
                             });
                         } else {
@@ -183,3 +226,5 @@
     </script>
 </body>
 </html>
+
+```
