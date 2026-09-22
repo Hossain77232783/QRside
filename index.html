@@ -70,18 +70,17 @@
             padding-bottom: 8px;
         }
         .header-title {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
             text-align: left;
         }
-        .nagad-logo-text {
-            font-size: 22px;
-            font-weight: bold;
+        /* নগদ অফিশিয়াল লোগো স্টাইল */
+        .nagad-logo {
+            height: 35px;
+            object-fit: contain;
             background: #fff;
-            color: #ec1c24;
-            padding: 3px 10px;
-            border-radius: 5px;
-            letter-spacing: 1px;
+            padding: 2px 6px;
+            border-radius: 4px;
         }
         .sub-title {
             font-size: 14px;
@@ -94,30 +93,41 @@
             display: inline-block;
             border-radius: 6px;
             margin: 5px 0;
+            min-height: 130px;
+            min-width: 130px;
+            box-sizing: border-box;
         }
         .account-title {
             font-size: 13px;
             margin: 8px 0 5px 0;
         }
-        /* আলাদা ডিজিট বক্স স্টাইল */
+        /* আলাদা ডিজিট বক্স ও হাইফেন স্টাইল */
         .digits-container {
             display: flex;
             justify-content: center;
-            gap: 3px;
+            align-items: center;
+            gap: 2px;
             margin: 8px 0 12px 0;
+            flex-wrap: wrap;
         }
         .digit-box {
             background: white;
             color: #ec1c24;
             font-size: 18px;
             font-weight: bold;
-            width: 26px;
-            height: 34px;
+            width: 25px;
+            height: 33px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 3px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .hyphen {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 0 2px;
         }
         .info-section {
             background: #ffc20e;
@@ -153,28 +163,28 @@
 <body>
 
 <div class="main-wrapper">
-    <!-- ইনপুট ফর্ম সেকশন (সব খালি রাখা হয়েছে) -->
+    <!-- ইনপুট ফর্ম সেকশন -->
     <div class="form-card">
         <h3>উদ্যোক্তার তথ্য পূরণ করুন</h3>
         <div class="form-group">
             <label>নাম:</label>
-            <input type="text" id="inputName" placeholder="আপনার নাম এখানে লিখুন" oninput="generateQRCode()">
+            <input type="text" id="inputName" placeholder="আপনার নাম এখানে লিখুন" oninput="updateData()">
         </div>
         <div class="form-group">
             <label>দোকানের নাম:</label>
-            <input type="text" id="inputShop" placeholder="দোকানের নাম এখানে লিখুন" oninput="generateQRCode()">
+            <input type="text" id="inputShop" placeholder="দোকানের নাম এখানে লিখুন" oninput="updateData()">
         </div>
         <div class="form-group">
             <label>ঠিকানা:</label>
-            <input type="text" id="inputAddress" placeholder="ঠিকানা এখানে লিখুন" oninput="generateQRCode()">
+            <input type="text" id="inputAddress" placeholder="ঠিকানা এখানে লিখুন" oninput="updateData()">
         </div>
         <div class="form-group">
             <label>আইডি (ID):</label>
-            <input type="text" id="inputID" placeholder="মার্চেন্ট আইডি লিখুন" oninput="generateQRCode()">
+            <input type="text" id="inputID" placeholder="মার্চেন্ট আইডি লিখুন" oninput="updateData()">
         </div>
         <div class="form-group">
             <label>উদ্যোক্তা অ্যাকাউন্ট নাম্বার (১১ ডিজিট):</label>
-            <input type="text" id="inputNumber" maxlength="11" placeholder="017xxxxxxxx" oninput="generateQRCode()">
+            <input type="text" id="inputNumber" maxlength="11" placeholder="017xxxxxxxx" oninput="updateData()">
         </div>
     </div>
 
@@ -182,7 +192,8 @@
     <div class="nagad-card">
         <div class="header-section">
             <div class="header-title">নগদ উদ্যোক্তা</div>
-            <div class="nagad-logo-text">নগদ</div>
+            <!-- নগদ অফিসিয়াল লোগো -->
+            <img src="https://www.vectorlogo.zone/logos/nagad/nagad-ar21.svg" alt="Nagad Logo" class="nagad-logo">
         </div>
         
         <div class="sub-title">ক্যাশ আউট করতে QR কোডটি স্ক্যান করুন</div>
@@ -193,7 +204,7 @@
 
         <div class="account-title">নগদ উদ্যোক্তা অ্যাকাউন্ট নাম্বার</div>
         
-        <!-- ১১ ডিজিটের আলাদা বক্স -->
+        <!-- ৪ ডিজিট পর পর হাইফেনসহ ১১ ডিজিটের বক্স -->
         <div class="digits-container" id="digitBoxes">
             <!-- জাভাস্ক্রিপ্ট দিয়ে ডাইনামিক বসবে -->
         </div>
@@ -213,44 +224,56 @@
 </div>
 
 <script>
-    function generateQRCode() {
+    function updateData() {
         const name = document.getElementById('inputName').value;
         const shop = document.getElementById('inputShop').value;
         const address = document.getElementById('inputAddress').value;
         const id = document.getElementById('inputID').value;
-        const number = document.getElementById('inputNumber').value;
+        const number = document.getElementById('inputNumber').value.trim();
 
         document.getElementById('dispName').innerText = name;
         document.getElementById('dispShop').innerText = shop;
         document.getElementById('dispAddress').innerText = address;
         document.getElementById('dispID').innerText = id;
 
-        // ১১ ডিজিট আলাদা বক্সে ভাগ করা
+        // ১১ ডিজিট ৪ ঘর পর পর হাইফেনসহ সাজানো
         const digitContainer = document.getElementById('digitBoxes');
         digitContainer.innerHTML = "";
+        
         for (let i = 0; i < 11; i++) {
             const digitBox = document.createElement('div');
             digitBox.className = 'digit-box';
             digitBox.innerText = number[i] || "";
             digitContainer.appendChild(digitBox);
+
+            // ৪ ও ৭ নম্বর ঘরের পরে হাইফেন (-) যোগ করা
+            if (i === 3 || i === 7) {
+                const hyphen = document.createElement('div');
+                hyphen.className = 'hyphen';
+                hyphen.innerText = "-";
+                digitContainer.appendChild(hyphen);
+            }
         }
 
-        // QR কোড জেনারেট
-        document.getElementById('qrcode').innerHTML = "";
-        const qrData = number ? `Nagad Merchant: ${number}, Name: ${name}, Shop: ${shop}, ID: ${id}` : "Nagad";
+        // QR কোড লজিক: নাম্বার লেখা থাকলে কেবল QR তৈরি হবে, না থাকলে খালি থাকবে
+        const qrElement = document.getElementById('qrcode');
+        qrElement.innerHTML = "";
 
-        new QRCode(document.getElementById("qrcode"), {
-            text: qrData,
-            width: 130,
-            height: 130,
-            colorDark : "#000000",
-            colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.H
-        });
+        if (number.length > 0) {
+            const qrData = `Nagad Merchant: ${number}, Name: ${name}, Shop: ${shop}, ID: ${id}`;
+            new QRCode(qrElement, {
+                text: qrData,
+                width: 120,
+                height: 120,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        }
     }
 
     window.onload = function() {
-        generateQRCode();
+        updateData();
     };
 </script>
 
