@@ -50,7 +50,7 @@
             font-size: 14px;
         }
         
-        /* নগদ অফিশিয়াল পোস্টার ডিজাইন */
+        /* নগদ অফিশিয়াল পোস্টার ডিজাইন (হুবহু ছবির মতো) */
         .nagad-card {
             background: #ec1c24;
             color: white;
@@ -60,31 +60,31 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             position: relative;
             box-sizing: border-box;
+            overflow: hidden;
         }
         .header-section {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            border-bottom: 2px solid #fff;
-            padding-bottom: 8px;
+            margin-bottom: 5px;
         }
         .header-title {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             text-align: left;
+            color: white;
         }
         /* নগদ অফিশিয়াল লোগো স্টাইল */
+        .nagad-logo-container {
+            text-align: right;
+        }
         .nagad-logo {
-            height: 35px;
+            height: 45px;
             object-fit: contain;
-            background: #fff;
-            padding: 2px 6px;
-            border-radius: 4px;
         }
         .sub-title {
-            font-size: 14px;
-            margin-bottom: 12px;
+            font-size: 16px;
+            margin: 10px 0 15px 0;
             font-weight: bold;
         }
         .qr-box {
@@ -92,14 +92,15 @@
             padding: 10px;
             display: inline-block;
             border-radius: 6px;
-            margin: 5px 0;
+            margin: 0 0 10px 0;
             min-height: 130px;
             min-width: 130px;
             box-sizing: border-box;
         }
         .account-title {
-            font-size: 13px;
-            margin: 8px 0 5px 0;
+            font-size: 15px;
+            margin: 5px 0 10px 0;
+            font-weight: bold;
         }
         /* আলাদা ডিজিট বক্স ও হাইফেন স্টাইল */
         .digits-container {
@@ -107,16 +108,16 @@
             justify-content: center;
             align-items: center;
             gap: 2px;
-            margin: 8px 0 12px 0;
+            margin: 5px 0 15px 0;
             flex-wrap: wrap;
         }
         .digit-box {
             background: white;
             color: #ec1c24;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
-            width: 25px;
-            height: 33px;
+            width: 26px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -127,36 +128,81 @@
             color: white;
             font-size: 20px;
             font-weight: bold;
-            padding: 0 2px;
+            padding: 0 3px;
         }
-        .info-section {
+        .info-section-title {
             background: #ffc20e;
             color: #000;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: left;
-            font-size: 13px;
-        }
-        .info-header {
+            padding: 6px;
             font-weight: bold;
             text-align: center;
-            margin-bottom: 6px;
-            border-bottom: 1px solid #777;
-            padding-bottom: 3px;
+            font-size: 14px;
+        }
+        /* নিচের তথ্য ও ছবির স্টাইল */
+        .info-box-wrapper {
+            background: #fff;
+            color: #000;
+            padding: 12px;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        .info-details {
+            font-size: 13px;
+            line-height: 1.6;
+            flex-grow: 1;
         }
         .info-row {
-            margin-bottom: 4px;
             display: flex;
+            margin-bottom: 3px;
         }
         .info-label {
             width: 75px;
             font-weight: bold;
+        }
+        .info-colon {
+            width: 15px;
+            font-weight: bold;
+        }
+        .info-value {
+            flex-grow: 1;
+            word-break: break-all;
+        }
+        /* বাম পাশের ছোট স্কয়ার বক্স এবং ডান পাশের লোগো */
+        .left-square-box {
+            width: 45px;
+            height: 55px;
+            border: 2px solid #333;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .right-gov-logo {
+            text-align: center;
+            flex-shrink: 0;
+            margin-left: 10px;
+        }
+        .gov-logo {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+        .gov-text {
+            font-size: 9px;
+            color: #333;
+            margin-top: 2px;
+            line-height: 1.1;
         }
         .footer-text {
             margin-top: 10px;
             font-size: 11px;
             border-top: 1px solid rgba(255,255,255,0.3);
             padding-top: 5px;
+            background: #ec1c24;
+            color: white;
+            text-align: center;
         }
     </style>
 </head>
@@ -167,8 +213,8 @@
     <div class="form-card">
         <h3>উদ্যোক্তার তথ্য পূরণ করুন</h3>
         <div class="form-group">
-            <label>নাম:</label>
-            <input type="text" id="inputName" placeholder="আপনার নাম এখানে লিখুন" oninput="updateData()">
+            <label>উদ্যোক্তার নাম:</label>
+            <input type="text" id="inputName" placeholder="নাম এখানে লিখুন" oninput="updateData()">
         </div>
         <div class="form-group">
             <label>দোকানের নাম:</label>
@@ -180,11 +226,11 @@
         </div>
         <div class="form-group">
             <label>আইডি (ID):</label>
-            <input type="text" id="inputID" placeholder="মার্চেন্ট আইডি লিখুন" oninput="updateData()">
+            <input type="text" id="inputID" placeholder="আইডি লিখুন" oninput="updateData()">
         </div>
         <div class="form-group">
             <label>উদ্যোক্তা অ্যাকাউন্ট নাম্বার (১১ ডিজিট):</label>
-            <input type="text" id="inputNumber" maxlength="11" placeholder="017xxxxxxxx" oninput="updateData()">
+            <input type="text" id="inputNumber" maxlength="11" placeholder="01xxxxxxxxx" oninput="updateData()">
         </div>
     </div>
 
@@ -192,8 +238,10 @@
     <div class="nagad-card">
         <div class="header-section">
             <div class="header-title">নগদ উদ্যোক্তা</div>
-            <!-- নগদ অফিসিয়াল লোগো -->
-            <img src="https://www.vectorlogo.zone/logos/nagad/nagad-ar21.svg" alt="Nagad Logo" class="nagad-logo">
+            <div class="nagad-logo-container">
+                <!-- নগদ অফিশিয়াল লোগো -->
+                <img src="https://www.vectorlogo.zone/logos/nagad/nagad-ar21.svg" alt="Nagad Logo" class="nagad-logo">
+            </div>
         </div>
         
         <div class="sub-title">ক্যাশ আউট করতে QR কোডটি স্ক্যান করুন</div>
@@ -209,12 +257,34 @@
             <!-- জাভাস্ক্রিপ্ট দিয়ে ডাইনামিক বসবে -->
         </div>
 
-        <div class="info-section">
-            <div class="info-header">নগদ উদ্যোক্তার তথ্যাবলি</div>
-            <div class="info-row"><span class="info-label">নাম</span>: <span id="dispName"></span></div>
-            <div class="info-row"><span class="info-label">দোকানের নাম</span>: <span id="dispShop"></span></div>
-            <div class="info-row"><span class="info-label">ঠিকানা</span>: <span id="dispAddress"></span></div>
-            <div class="info-row"><span class="info-label">আইডি</span>: <span id="dispID"></span></div>
+        <div class="info-section-title">নগদ উদ্যোক্তার তথ্যাবলি</div>
+        
+        <!-- ছবির আদলে নিচের তথ্য সেকশন -->
+        <div class="info-box-wrapper">
+            <!-- বাম পাশের ছোট স্কয়ার বক্স -->
+            <div class="left-square-box"></div>
+
+            <div class="info-details">
+                <div class="info-row">
+                    <span class="info-label">উদ্যোক্তার নাম</span><span class="info-colon">:</span><span class="info-value" id="dispName"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">দোকানের নাম</span><span class="info-colon">:</span><span class="info-value" id="dispShop"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">ঠিকানা</span><span class="info-colon">:</span><span class="info-value" id="dispAddress"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">আইডি</span><span class="info-colon">:</span><span class="info-value" id="dispID"></span>
+                </div>
+            </div>
+
+            <!-- ডান পাশের গণপ্রজাতন্ত্রী বাংলাদেশ সরকার লোগো -->
+            <div class="right-gov-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Bangladesh_%28tubemap%29.svg" alt="Gov Logo" class="gov-logo" style="display:none;"> <!-- বিকল্প বা অফিশিয়াল লোগো লিংক নিচের স্ক্রিপ্টে সেট করা আছে -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Government_Seal_of_Bangladesh.svg" alt="Bangladesh Govt Seal" class="gov-logo">
+                <div class="gov-text">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার<br>ডাক অধিদপ্তর</div>
+            </div>
         </div>
 
         <div class="footer-text">
