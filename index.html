@@ -1,5 +1,3 @@
-
-```html
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -71,30 +69,30 @@
         </div>
     </div>
 
-    <!-- Poster Main Container -->
+    <!-- Poster Main Container (Exact Match to Original Poster) -->
     <div id="poster" class="poster-container w-[480px] bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-300 flex flex-col">
         
         <!-- Top Header Section -->
         <div class="nagad-red pt-5 pb-6 px-6 text-center text-white relative">
-            <div class="flex justify-center items-center mb-2">
-                <div class="bg-white rounded-full px-4 py-1.5 shadow-sm flex items-center gap-2">
-                    <span class="text-orange-600 font-extrabold text-xl tracking-tight">নগদ</span>
-                    <span class="text-xs text-gray-600 font-semibold border-l pl-2 border-gray-300">ডাক বিভাগের ডিজিটাল লেনদেন</span>
+            <div class="flex justify-center items-center mb-3">
+                <div class="bg-white rounded-full px-5 py-1.5 shadow-sm inline-flex items-center gap-2">
+                    <span class="text-red-600 font-extrabold text-xl tracking-tight">নগদ</span>
+                    <span class="text-[11px] text-gray-600 font-semibold border-l pl-2 border-gray-300">ডাক বিভাগের ডিজিটাল লেনদেন</span>
                 </div>
             </div>
-            <h1 class="text-3xl font-extrabold tracking-wide mt-2 mb-1">নগদ উদ্যোক্তা</h1>
+            <h1 class="text-3xl font-extrabold tracking-wide mt-1 mb-1">নগদ উদ্যোক্তা</h1>
             <p class="text-sm font-medium tracking-wide text-red-100">ক্যাশ আউট করতে QR কোডটি স্ক্যান করুন</p>
         </div>
 
         <!-- Middle White Card with QR Code -->
-        <div class="bg-white px-6 py-5 flex flex-col items-center">
+        <div class="bg-white px-6 pt-5 pb-4 flex flex-col items-center">
             <div class="bg-white p-3 rounded-2xl shadow-lg border border-gray-200 inline-block">
-                <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=01812711699" alt="Nagad Udyokta QR Code" class="w-56 h-56 object-contain rounded-lg">
+                <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=01812711699" alt="Nagad Udyokta QR Code" class="w-52 h-52 object-contain rounded-lg">
             </div>
 
             <!-- Account Number Section -->
             <div class="mt-4 text-center w-full">
-                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">নগদ উদ্যোক্তা একাউন্ট নাম্বার</p>
+                <p class="text-xs font-semibold text-gray-700 tracking-wider mb-2">নগদ উদ্যোক্তা একাউন্ট নাম্বার</p>
                 <div id="phoneBoxes" class="flex justify-center gap-1 bg-red-700 p-2.5 rounded-xl shadow-inner text-white font-bold text-lg">
                     <!-- Dynamically filled via JavaScript -->
                 </div>
@@ -102,34 +100,34 @@
         </div>
 
         <!-- Bottom Details Section -->
-        <div class="bg-gray-50 border-t border-gray-200 px-6 py-5 flex flex-col gap-3">
-            <h2 class="text-center font-bold text-gray-800 text-sm tracking-wide border-b border-gray-200 pb-2">উদ্যোক্তার তথ্যাবলি</h2>
+        <div class="bg-gray-50 border-t border-gray-300 px-6 py-4 flex flex-col gap-2.5">
+            <h2 class="text-center font-bold text-gray-800 text-sm tracking-wide border-b border-gray-300 pb-2">উদ্যোক্তার তথ্যাবলি</h2>
             
-            <div class="text-xs space-y-2 text-gray-700">
-                <div class="flex">
+            <div class="text-xs space-y-2 text-gray-700 px-2">
+                <div class="flex items-center">
                     <span class="w-24 font-semibold text-gray-600">নাম</span>
-                    <span class="w-4 text-center">:</span>
+                    <span class="w-4 text-center font-semibold">:</span>
                     <span id="displayName" class="font-bold text-gray-900 uppercase">MANJUR ALAM</span>
                 </div>
-                <div class="flex">
+                <div class="flex items-center">
                     <span class="w-24 font-semibold text-gray-600">দোকানের নাম</span>
-                    <span class="w-4 text-center">:</span>
+                    <span class="w-4 text-center font-semibold">:</span>
                     <span id="displayShop" class="font-bold text-gray-900 uppercase">MAHIR TELECOM</span>
                 </div>
-                <div class="flex">
+                <div class="flex items-center">
                     <span class="w-24 font-semibold text-gray-600">ঠিকানা</span>
-                    <span class="w-4 text-center">:</span>
+                    <span class="w-4 text-center font-semibold">:</span>
                     <span id="displayAddress" class="font-bold text-gray-900 uppercase">RAJAPALANG, Ukhiya, Cox's Bazar-4750</span>
                 </div>
-                <div class="flex">
+                <div class="flex items-center">
                     <span class="w-24 font-semibold text-gray-600">আইডি</span>
-                    <span class="w-4 text-center">:</span>
+                    <span class="w-4 text-center font-semibold">:</span>
                     <span id="displayID" class="font-bold text-gray-900 uppercase">A609851</span>
                 </div>
             </div>
 
             <!-- Footer Website & Helpline -->
-            <div class="mt-3 pt-3 border-t border-gray-200 text-center text-[11px] text-gray-500 font-medium flex justify-center items-center gap-3">
+            <div class="mt-2 pt-2.5 border-t border-gray-300 text-center text-[11px] text-gray-600 font-medium flex justify-center items-center gap-2">
                 <span>nagad.com.bd</span>
                 <span>|</span>
                 <span class="flex items-center gap-1">📞 16167 | 096 096 16167</span>
@@ -158,7 +156,7 @@
             
             for (let i = 0; i < phone.length; i++) {
                 let span = document.createElement('span');
-                span.className = "bg-white text-gray-900 font-bold text-lg px-2 py-1 rounded";
+                span.className = "bg-white text-gray-900 font-bold text-lg px-2 py-0.5 rounded";
                 span.innerText = phone[i];
                 phoneContainer.appendChild(span);
                 
@@ -226,5 +224,3 @@
     </script>
 </body>
 </html>
-
-```
