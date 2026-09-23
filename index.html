@@ -4,14 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>নগদ উদ্যোক্তা QR কোড জেনারেটর</title>
-    <!-- QRCode.js লাইব্রেরি -->
+    <!-- Google Fonts for Bengali -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- QRCode.js Library for dynamic QR generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- html2canvas and jsPDF for download features -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'SolaimanLipi', Arial, sans-serif;
+            font-family: 'Hind Siliguri', sans-serif;
         }
 
         body {
@@ -19,27 +25,26 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             min-height: 100vh;
             padding: 20px;
         }
 
-        /* কন্ট্রোল প্যানেল */
+        /* Form Controls for Input */
         .control-panel {
-            background: #ffffff;
+            background: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 480px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .control-panel h3 {
             margin-bottom: 15px;
-            color: #d11241;
+            color: #d32f2f;
             text-align: center;
-            font-size: 16px;
         }
 
         .form-group {
@@ -48,10 +53,9 @@
 
         .form-group label {
             display: block;
-            font-weight: bold;
+            font-weight: 600;
             margin-bottom: 5px;
             color: #333;
-            font-size: 13px;
         }
 
         .form-group input {
@@ -59,7 +63,7 @@
             padding: 8px 12px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 14px;
+            font-size: 15px;
         }
 
         .btn-container {
@@ -73,385 +77,383 @@
             padding: 10px;
             border: none;
             border-radius: 5px;
+            background-color: #d32f2f;
             color: white;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 14px;
-            transition: 0.3s;
+            transition: background 0.3s;
         }
 
-        .btn-download { background-color: #28a745; }
-        .btn-download:hover { background-color: #218838; }
-        
-        .btn-print { background-color: #007bff; }
-        .btn-print:hover { background-color: #0056b3; }
+        .btn:hover {
+            background-color: #b71c1c;
+        }
 
-        /* মূল পোস্টার ফ্রেম (হুবহু ছবির লেআউট) */
-        .poster-frame {
-            border: 2px solid #000000;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #ffffff;
+        /* Main Nagad Poster Design Container */
+        .nagad-card {
             width: 100%;
             max-width: 480px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            border: 2px solid #000000;
+            overflow: hidden;
+            position: relative;
         }
 
-        /* ওপরের লাল অংশ */
+        /* Top Red Section */
         .top-section {
-            background-color: #d11241;
-            color: white;
-            padding: 18px 15px;
+            background-color: #d71920;
+            color: #ffffff;
+            padding: 20px 15px;
             text-align: center;
             position: relative;
         }
 
-        .header-top {
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
         }
 
-        .tagline {
-            font-size: 12px;
-            font-weight: bold;
-            background: rgba(255, 255, 255, 0.25);
-            padding: 5px 12px;
+        .left-tagline {
+            font-size: 14px;
+            font-weight: 700;
+            background: #ffffff;
+            color: #d71920;
+            padding: 4px 10px;
             border-radius: 20px;
-            color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* লোগো সেকশন */
         .logo-area {
-            background: white;
-            padding: 4px 10px;
-            border-radius: 6px;
-            text-align: center;
-            display: inline-block;
+            text-align: right;
         }
 
         .logo-area img {
-            height: 32px;
-            display: block;
-            margin: 0 auto;
+            height: 45px;
         }
 
-        .logo-area span {
-            display: block;
-            font-size: 8px;
-            margin-top: 1px;
-            color: #444;
-            font-weight: bold;
+        .logo-subtext {
+            font-size: 10px;
+            color: #fff;
+            margin-top: -2px;
         }
 
         .main-title {
-            font-size: 26px;
-            font-weight: bold;
-            margin-bottom: 4px;
-            letter-spacing: 0.5px;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
         }
 
         .sub-title {
-            font-size: 13px;
-            margin-bottom: 12px;
-            color: #fbebee;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
         }
 
-        /* কিউআর কোড হোয়াইট বক্স */
-        .qr-box-wrapper {
-            background: white;
-            padding: 12px;
-            border-radius: 12px;
+        /* QR Box */
+        .qr-box-container {
+            background: #ffffff;
+            padding: 15px;
             display: inline-block;
-            margin-bottom: 8px;
+            border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            margin-bottom: 10px;
         }
 
         #qrcode canvas, #qrcode img {
             display: block;
             margin: 0 auto;
-            width: 170px !important;
-            height: 170px !important;
+            width: 180px !important;
+            height: 180px !important;
         }
 
         .account-label {
-            font-size: 12px;
-            margin-top: 6px;
-            margin-bottom: 8px;
-            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 5px;
+            margin-bottom: 10px;
         }
 
-        /* ১১ ডিজিট অ্যাকাউন্ট নম্বর ঘর */
-        .account-digits {
+        /* Digit boxes for mobile number */
+        .number-boxes {
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 2px;
-            background: white;
-            padding: 8px 5px;
-            border-radius: 8px;
+            gap: 3px;
+            flex-wrap: nowrap;
+            margin-top: 5px;
         }
 
         .digit-box {
             background: #ffffff;
-            color: #d11241;
-            font-size: 17px;
-            font-weight: bold;
-            width: 27px;
-            height: 36px;
+            color: #000000;
+            font-size: 20px;
+            font-weight: 700;
+            width: 32px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 4px;
-            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        .digit-separator {
-            color: #d11241;
-            font-size: 18px;
+        .dash {
+            color: #ffffff;
+            font-size: 22px;
             font-weight: bold;
-            margin: 0 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 12px;
         }
 
-        /* মাঝের হলুদ অংশ */
-        .middle-yellow {
-            background-color: #ffc107;
-            color: #000;
+        /* Middle Yellow Title Section */
+        .yellow-section {
+            background-color: #ffcc00;
+            color: #000000;
             text-align: center;
-            padding: 7px;
-            font-weight: bold;
-            font-size: 14px;
-            letter-spacing: 0.5px;
+            padding: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            border-top: 2px solid #000;
+            border-bottom: 2px solid #000;
         }
 
-        /* নিচের সাদা অংশ */
-        .bottom-white {
+        /* Bottom White Section */
+        .bottom-section {
             background-color: #ffffff;
-            color: #333;
-            padding: 18px 20px;
+            padding: 20px;
+            color: #333333;
         }
 
-        .info-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .info-table td {
-            padding: 5px 0;
-            font-size: 13px;
+        .info-row {
+            display: flex;
+            margin-bottom: 10px;
+            font-size: 14px;
         }
 
         .info-label {
-            width: 27%;
-            font-weight: bold;
+            width: 100px;
+            font-weight: 600;
             color: #444;
         }
 
         .info-colon {
-            width: 5%;
-            text-align: center;
-            font-weight: bold;
+            width: 15px;
+            font-weight: 600;
         }
 
         .info-value {
-            width: 68%;
-            font-weight: 600;
+            flex: 1;
+            font-weight: 700;
             color: #111;
+            text-transform: uppercase;
         }
 
-        /* একদম নিচের গাঢ় লাল ফুটার অংশ */
-        .footer-red {
-            background-color: #d11241;
-            color: white;
+        /* Footer Dark Red Section */
+        .footer-section {
+            background-color: #b71c1c;
+            color: #ffffff;
             text-align: center;
-            padding: 9px;
-            font-size: 11px;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: 600;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
-        @media print {
-            .control-panel {
-                display: none;
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .digit-box {
+                width: 26px;
+                height: 34px;
+                font-size: 16px;
             }
-            body {
-                background: white;
-                padding: 0;
-            }
-            .poster-frame {
-                box-shadow: none;
-                border: 1px solid #000;
+            .main-title {
+                font-size: 26px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- কন্ট্রোল প্যানেল -->
-    <div class="control-panel">
-        <h3>উদ্যোক্তার তথ্য ও QR কোড এডিটর</h3>
+    <!-- কন্ট্রোল প্যানেল (ইনপুট দেওয়ার জন্য) -->
+    <div class="control-panel no-print">
+        <h3>তথ্য ও নম্বর পরিবর্তন করুন</h3>
+        <div class="form-group">
+            <label>একাউন্ট নাম্বার (১১ ডিজিট):</label>
+            <input type="text" id="inputNumber" value="01812711699" maxlength="11" oninput="updateCard()">
+        </div>
         <div class="form-group">
             <label>নাম:</label>
-            <input type="text" id="inputName" value="MANJUR ALAM" oninput="updatePoster()">
+            <input type="text" id="inputName" value="MANJUR ALAM" oninput="updateCard()">
         </div>
         <div class="form-group">
             <label>দোকানের নাম:</label>
-            <input type="text" id="inputShop" value="MAHIR TELECOM" oninput="updatePoster()">
+            <input type="text" id="inputShop" value="MAHIR TELECOM" oninput="updateCard()">
         </div>
         <div class="form-group">
             <label>ঠিকানা:</label>
-            <input type="text" id="inputAddress" value="RAJAPALANG, Ukhiya, Cox'S Bazar-4750" oninput="updatePoster()">
+            <input type="text" id="inputAddress" value="RAJAPALANG, Ukhiya, Cox's Bazar-4750" oninput="updateCard()">
         </div>
         <div class="form-group">
-            <label>আইডি:</label>
-            <input type="text" id="inputID" value="A609851" oninput="updatePoster()">
+            <label>আইডি (ID):</label>
+            <input type="text" id="inputID" value="A609851" oninput="updateCard()">
         </div>
-        <div class="form-group">
-            <label>নগদ অ্যাকাউন্ট নম্বর (১১ ডিজিট):</label>
-            <input type="text" id="inputPhone" maxlength="11" value="01812711699" oninput="updatePoster()">
-        </div>
-        
         <div class="btn-container">
-            <button class="btn btn-download" onclick="downloadPosterImage()">ডাউনলোড ছবি</button>
-            <button class="btn btn-print" onclick="window.print()">প্রিন্ট / PDF সেভ</button>
+            <button class="btn" onclick="downloadImage()">ডাউনলোড ইমেজ</button>
+            <button class="btn" onclick="downloadPDF()">পিডিএফ (PDF)</button>
         </div>
     </div>
 
-    <!-- মূল পোস্টার ডিজাইন ফ্রেম -->
-    <div class="poster-frame" id="posterArea">
-        
+    <!-- মূল পোস্টার কন্টেইনার -->
+    <div class="nagad-card" id="captureCard">
         <!-- ওপরের লাল অংশ -->
         <div class="top-section">
-            <div class="header-top">
-                <div class="tagline">দেশি নগদে বেশি লাভ</div>
+            <div class="header-content">
+                <div class="left-tagline">দেশি নগদে বেশি লাভ</div>
                 <div class="logo-area">
-                    <!-- Base64 এনকোডেড লোগো (সার্ভার ডাউন থাকলেও সবসময় দেখাবে) -->
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzOTAuNSA5OS43MiI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiNmMjY1MjI7fS5jbHMtMntmaWxsOiNkMWMyOGE7fS5jbHMtM3tmaWxsOiMyMzFmMjA7fTwvc3R5bGU+PC9kZWZzPjxnIGlkPSJDYXBhXzEiIGRhdGEtbmFtZT0iQ2FwYSAxIj48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0yOTUuMiwzOC45MmMtNS4zMSwwLTguMzksMy4wOC04LjM5LDguMzlsMCwzMC42MWMwLDUuMzEsMy4wOCw4LjM5LDguMzksOC4zOWw3LjI2LDBjNS4zMSwwLDguMzktMy4wOCw4LjM5LTguMzlsMC0zMC42MWMwLTUuMzEtMy4wOC04LjM5LTguMzktOC4zOUwyOTUuMiwzOC45MnoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNjQuNjMsNDcuMzFhOC40Miw4LjQyLDAsMCwwLTguMzktOC4zOWwtNy4yNiwwYy01LjMxLDAtOC4zOSwzLjA4LTguMzksOC4zOWwwLDMwLjYxYzAsNS4zMSwzLjA4LDguMzksOC4zOSw4LjM5bDcuMjYsMGM1LjMxLDAsOC4zOS0zLjA4LDguMzktOC4zOVwwLTMwLjYxWiIvPjxwYXRoIGNsYXNzPSJjbHMtMyIgZD0iTTM1OS42NCwzOC45MmMtNS4zMSwwLTguMzksMy4wOC04LjM5LDguMzlsMCwzMC42MWMwLDUuMzEsMy4wOCw4LjM5LDguMzksOC4zOWw3LjI2LDBjNS4zMSwwLDguMzktMy4wOCw4LjM5LTguMzlsMC0zMC42MWMwLTUuMzEtMy4wOC04LjM5LTguMzktOC4zOUwzNTkuNjQsMzguOTJ6Ii8+PC9nPjwvc3ZnPg==" alt="Nagad Logo">
-                    <span>ডাক বিভাগের ডিজিটাল লেনদেন</span>
+                    <!-- অফিসিয়াল লোগো প্লেসহোল্ডার -->
+                    <img src="https://i.ibb.co.com/4gJt9S0/nagad-logo.png" alt="Nagad Logo" onerror="this.src='https://seeklogo.com/images/N/nagad-logo-A4B753B3C8-seeklogo.com.png'">
+                    <div class="logo-subtext">ডাক বিভাগের ডিজিটাল লেনদেন</div>
                 </div>
             </div>
 
             <div class="main-title">নগদ উদ্যোক্তা</div>
             <div class="sub-title">ক্যাশ আউট করতে QR কোডটি স্ক্যান করুন</div>
 
-            <div class="qr-box-wrapper">
+            <div class="qr-box-container">
                 <div id="qrcode"></div>
             </div>
 
             <div class="account-label">নগদ উদ্যোক্তা একাউন্ট নাম্বার</div>
 
-            <!-- ১১ ডিজিটের আলাদা ঘর -->
-            <div class="account-digits" id="digitContainer"></div>
+            <!-- ডাইনামিক ডিজিট বক্স -->
+            <div class="number-boxes" id="numberBoxesContainer">
+                <!-- JavaScript দ্বারা ডিজিটগুলো এখানে জেনারেট হবে -->
+            </div>
         </div>
 
         <!-- মাঝের হলুদ অংশ -->
-        <div class="middle-yellow">
+        <div class="yellow-section">
             উদ্যোক্তার তথ্যাবলি
         </div>
 
         <!-- নিচের সাদা অংশ -->
-        <div class="bottom-white">
-            <table class="info-table">
-                <tr>
-                    <td class="info-label">নাম</td>
-                    <td class="info-colon">:</td>
-                    <td class="info-value" id="displayName">MANJUR ALAM</td>
-                </tr>
-                <tr>
-                    <td class="info-label">দোকানের নাম</td>
-                    <td class="info-colon">:</td>
-                    <td class="info-value" id="displayShop">MAHIR TELECOM</td>
-                </tr>
-                <tr>
-                    <td class="info-label">ঠিকানা</td>
-                    <td class="info-colon">:</td>
-                    <td class="info-value" id="displayAddress">RAJAPALANG, Ukhiya, Cox'S Bazar-4750</td>
-                </tr>
-                <tr>
-                    <td class="info-label">আইডি</td>
-                    <td class="info-colon">:</td>
-                    <td class="info-value" id="displayID">A609851</td>
-                </tr>
-            </table>
+        <div class="bottom-section">
+            <div class="info-row">
+                <div class="info-label">নাম</div>
+                <div class="info-colon">:</div>
+                <div class="info-value" id="displayName">MANJUR ALAM</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">দোকানের নাম</div>
+                <div class="info-colon">:</div>
+                <div class="info-value" id="displayShop">MAHIR TELECOM</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">ঠিকানা</div>
+                <div class="info-colon">:</div>
+                <div class="info-value" id="displayAddress">RAJAPALANG, Ukhiya, Cox's Bazar-4750</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">আইডি</div>
+                <div class="info-colon">:</div>
+                <div class="info-value" id="displayID">A609851</div>
+            </div>
         </div>
 
         <!-- একদম নিচের গাঢ় লাল অংশ -->
-        <div class="footer-red">
+        <div class="footer-section">
             <span>nagad.com.bd</span> | <span>📞 16167</span> | <span>096 096 16167</span>
         </div>
-
     </div>
 
-    <!-- html2canvas লাইব্রেরি -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
     <script>
-        let qrcodeObj = new QRCode(document.getElementById("qrcode"), {
+        // QR কোড জেনারেটর ইনিশিয়ালাইজেশন
+        let qrcode = new QRCode(document.getElementById("qrcode"), {
             text: "01812711699",
-            width: 170,
-            height: 170,
+            width: 180,
+            height: 180,
             colorDark : "#000000",
             colorLight : "#ffffff",
             correctLevel : QRCode.CorrectLevel.H
         });
 
-        function updatePoster() {
-            const name = document.getElementById('inputName').value;
-            const shop = document.getElementById('inputShop').value;
-            const address = document.getElementById('inputAddress').value;
-            const id = document.getElementById('inputID').value;
-            let phone = document.getElementById('inputPhone').value.replace(/\D/g, '');
-
-            if(phone.length > 11) phone = phone.slice(0, 11);
-
-            document.getElementById('displayName').innerText = name;
-            document.getElementById('displayShop').innerText = shop;
-            document.getElementById('displayAddress').innerText = address;
-            document.getElementById('displayID').innerText = id;
-
-            let digitContainer = document.getElementById('digitContainer');
-            digitContainer.innerHTML = '';
-
-            for (let i = 0; i < 11; i++) {
-                let char = phone[i] !== undefined ? phone[i] : '0';
-                let box = document.createElement('div');
-                box.className = 'digit-box';
-                box.innerText = char;
-                digitContainer.appendChild(box);
-
-                if (i === 2 || i === 6) {
-                    let sep = document.createElement('div');
-                    sep.className = 'digit-separator';
-                    sep.innerText = '-';
-                    digitContainer.appendChild(sep);
-                }
+        function updateCard() {
+            let number = document.getElementById("inputNumber").value.trim();
+            // ফাঁকা বা ১১ ডিজিটের কম হলে ডিফল্ট নম্বর ব্যবহার করা
+            if(number.length !== 11) {
+                number = "01812711699";
             }
 
-            let qrText = phone ? phone : "01812711699";
-            qrcodeObj.clear();
-            qrcodeObj.makeCode(qrText);
+            // টেক্সট ফিল্ডগুলো আপডেট করা
+            document.getElementById("displayName").innerText = document.getElementById("inputName").value;
+            document.getElementById("displayShop").innerText = document.getElementById("inputShop").value;
+            document.getElementById("displayAddress").innerText = document.getElementById("inputAddress").value;
+            document.getElementById("displayID").innerText = document.getElementById("inputID").value;
+
+            // QR কোড আপডেট করা
+            qrcode.makeCode(number);
+
+            // ১১ ডিজিট নম্বরটিকে আলাদা আলাদা বক্সে ভাগ করা (Format: 018-1271-1699 বা আলাদা ঘর)
+            let container = document.getElementById("numberBoxesContainer");
+            container.innerHTML = "";
+
+            for (let i = 0; i < number.length; i++) {
+                let box = document.createElement("div");
+                box.className = "digit-box";
+                box.innerText = number[i];
+                container.appendChild(box);
+
+                // নির্দিষ্ট পজিশনে হাইফেন বা স্পেস যুক্ত করা (যেমন: ৩য় এবং ৭ম ঘরের পর)
+                if (i === 2 || i === 6) {
+                    let dash = document.createElement("div");
+                    dash.className = "dash";
+                    dash.innerText = "-";
+                    container.appendChild(dash);
+                }
+            }
         }
 
-        function downloadPosterImage() {
-            const controlPanel = document.querySelector('.control-panel');
-            controlPanel.style.display = 'none';
+        // পেজ লোড হওয়ার সাথে সাথে রান করা
+        window.onload = function() {
+            updateCard();
+        };
 
-            const poster = document.getElementById('posterArea');
-            html2canvas(poster, { scale: 2, useCORS: true, allowTaint: true }).then(canvas => {
-                let link = document.createElement('a');
-                link.download = 'nagad-qr-code.png';
+        // ইমেজ ডাউনলোড করার ফাংশন
+        function downloadImage() {
+            const card = document.getElementById("captureCard");
+            html2canvas(card, { scale: 3, useCORS: true }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'nagad-qrcode-poster.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
-                controlPanel.style.display = 'block';
             });
         }
 
-        window.onload = function() {
-            updatePoster();
+        // পিডিএফ ডাউনলোড করার ফাংশন
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const card = document.getElementById("captureCard");
+            html2canvas(card, { scale: 3, useCORS: true }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const imgWidth = 190; 
+                const pageHeight = 295;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 10;
+
+                pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                pdf.save('nagad-qrcode-poster.pdf');
+            });
         }
     </script>
 </body>
-</html>        
+</html>
