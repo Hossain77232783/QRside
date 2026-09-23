@@ -6,9 +6,9 @@
     <title>নগদ উদ্যোক্তা QR কোড জেনারেটর</title>
     <!-- Google Fonts for Bengali -->
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- QRCode.js Library for dynamic QR generation -->
+    <!-- QRCode.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <!-- html2canvas and jsPDF for download features -->
+    <!-- html2canvas and jsPDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -30,58 +30,60 @@
             padding: 20px;
         }
 
-        /* Form Controls for Input */
+        /* Form Controls */
         .control-panel {
             background: #fff;
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             width: 100%;
-            max-width: 480px;
+            max-width: 440px;
             margin-bottom: 20px;
         }
 
         .control-panel h3 {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             color: #d32f2f;
             text-align: center;
+            font-size: 16px;
         }
 
         .form-group {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .form-group label {
             display: block;
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
             color: #333;
+            font-size: 13px;
         }
 
         .form-group input {
             width: 100%;
-            padding: 8px 12px;
+            padding: 6px 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .btn-container {
             display: flex;
             gap: 10px;
-            margin-top: 15px;
+            margin-top: 12px;
         }
 
         .btn {
             flex: 1;
-            padding: 10px;
+            padding: 8px;
             border: none;
             border-radius: 5px;
             background-color: #d32f2f;
             color: white;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s;
+            font-size: 14px;
         }
 
         .btn:hover {
@@ -91,90 +93,97 @@
         /* Main Nagad Poster Design Container */
         .nagad-card {
             width: 100%;
-            max-width: 480px;
+            max-width: 440px;
             background: #ffffff;
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.15);
             border: 2px solid #000000;
             overflow: hidden;
-            position: relative;
         }
 
         /* Top Red Section */
         .top-section {
             background-color: #d71920;
             color: #ffffff;
-            padding: 20px 15px;
+            padding: 15px;
             text-align: center;
-            position: relative;
         }
 
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .left-tagline {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             background: #ffffff;
             color: #d71920;
-            padding: 4px 10px;
+            padding: 5px 10px;
             border-radius: 20px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            white-space: nowrap;
         }
 
         .logo-area {
             text-align: right;
         }
 
-        .logo-area img {
-            height: 45px;
+        /* স্টাইলিশ টেক্সট লোগো (লিংক ফেইলিওর এড়াতে) */
+        .nagad-logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            background: #ff5722;
+            padding: 2px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            letter-spacing: 1px;
         }
 
         .logo-subtext {
-            font-size: 10px;
-            color: #fff;
-            margin-top: -2px;
+            font-size: 9px;
+            color: #ffffff;
+            margin-top: 2px;
+            white-space: nowrap;
         }
 
         .main-title {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
         }
 
         .sub-title {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         /* QR Box */
         .qr-box-container {
             background: #ffffff;
-            padding: 15px;
+            padding: 12px;
             display: inline-block;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         #qrcode canvas, #qrcode img {
             display: block;
             margin: 0 auto;
-            width: 180px !important;
-            height: 180px !important;
+            width: 160px !important;
+            height: 160px !important;
         }
 
         .account-label {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
-            margin-top: 5px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         /* Digit boxes for mobile number */
@@ -182,17 +191,16 @@
             display: flex;
             justify-content: center;
             gap: 3px;
-            flex-wrap: nowrap;
-            margin-top: 5px;
+            align-items: center;
         }
 
         .digit-box {
             background: #ffffff;
             color: #000000;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
-            width: 32px;
-            height: 40px;
+            width: 28px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -202,12 +210,8 @@
 
         .dash {
             color: #ffffff;
-            font-size: 22px;
+            font-size: 18px;
             font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 12px;
         }
 
         /* Middle Yellow Title Section */
@@ -215,8 +219,8 @@
             background-color: #ffcc00;
             color: #000000;
             text-align: center;
-            padding: 8px;
-            font-size: 18px;
+            padding: 6px;
+            font-size: 16px;
             font-weight: 700;
             border-top: 2px solid #000;
             border-bottom: 2px solid #000;
@@ -225,18 +229,18 @@
         /* Bottom White Section */
         .bottom-section {
             background-color: #ffffff;
-            padding: 20px;
+            padding: 15px;
             color: #333333;
         }
 
         .info-row {
             display: flex;
-            margin-bottom: 10px;
-            font-size: 14px;
+            margin-bottom: 8px;
+            font-size: 13px;
         }
 
         .info-label {
-            width: 100px;
+            width: 90px;
             font-weight: 600;
             color: #444;
         }
@@ -258,32 +262,20 @@
             background-color: #b71c1c;
             color: #ffffff;
             text-align: center;
-            padding: 8px;
-            font-size: 12px;
+            padding: 6px;
+            font-size: 11px;
             font-weight: 600;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 480px) {
-            .digit-box {
-                width: 26px;
-                height: 34px;
-                font-size: 16px;
-            }
-            .main-title {
-                font-size: 26px;
-            }
+            gap: 6px;
         }
     </style>
 </head>
 <body>
 
-    <!-- কন্ট্রোল প্যানেল (ইনপুট দেওয়ার জন্য) -->
-    <div class="control-panel no-print">
+    <!-- কন্ট্রোল প্যানেল -->
+    <div class="control-panel">
         <h3>তথ্য ও নম্বর পরিবর্তন করুন</h3>
         <div class="form-group">
             <label>একাউন্ট নাম্বার (১১ ডিজিট):</label>
@@ -317,11 +309,11 @@
         <div class="top-section">
             <div class="header-content">
                 <div class="left-tagline">দেশি নগদে বেশি লাভ</div>
-               
-                    <div class="logo-area" style="text-align: right;">
-    <div style="font-size: 26px; font-weight: bold; color: #ffffff; background: #ff5722; padding: 2px 10px; border-radius: 6px; display: inline-block; font-family: sans-serif;">নগদ</div>
-    <div class="logo-subtext" style="font-size: 10px; color: #fff; margin-top: 2px;">ডাক বিভাগের ডিজিটাল লেনদেন</div>
-</div>
+                <div class="logo-area">
+                    <div class="nagad-logo-text">নগদ</div>
+                    <div class="logo-subtext">ডাক বিভাগের ডিজিটাল লেনদেন</div>
+                </div>
+            </div>
 
             <div class="main-title">নগদ উদ্যোক্তা</div>
             <div class="sub-title">ক্যাশ আউট করতে QR কোডটি স্ক্যান করুন</div>
@@ -333,9 +325,7 @@
             <div class="account-label">নগদ উদ্যোক্তা একাউন্ট নাম্বার</div>
 
             <!-- ডাইনামিক ডিজিট বক্স -->
-            <div class="number-boxes" id="numberBoxesContainer">
-                <!-- JavaScript দ্বারা ডিজিটগুলো এখানে জেনারেট হবে -->
-            </div>
+            <div class="number-boxes" id="numberBoxesContainer"></div>
         </div>
 
         <!-- মাঝের হলুদ অংশ -->
@@ -369,16 +359,15 @@
 
         <!-- একদম নিচের গাঢ় লাল অংশ -->
         <div class="footer-section">
-            <span>nagad.com.bd</span> | <span>📞 16167</span> | <span>096 096 16167</span>
+            <span>nagad.com.bd</span> | <span>16167</span> | <span>096 096 16167</span>
         </div>
     </div>
 
     <script>
-        // QR কোড জেনারেটর ইনিশিয়ালাইজেশন
         let qrcode = new QRCode(document.getElementById("qrcode"), {
             text: "01812711699",
-            width: 180,
-            height: 180,
+            width: 160,
+            height: 160,
             colorDark : "#000000",
             colorLight : "#ffffff",
             correctLevel : QRCode.CorrectLevel.H
@@ -386,21 +375,17 @@
 
         function updateCard() {
             let number = document.getElementById("inputNumber").value.trim();
-            // ফাঁকা বা ১১ ডিজিটের কম হলে ডিফল্ট নম্বর ব্যবহার করা
             if(number.length !== 11) {
                 number = "01812711699";
             }
 
-            // টেক্সট ফিল্ডগুলো আপডেট করা
             document.getElementById("displayName").innerText = document.getElementById("inputName").value;
             document.getElementById("displayShop").innerText = document.getElementById("inputShop").value;
             document.getElementById("displayAddress").innerText = document.getElementById("inputAddress").value;
             document.getElementById("displayID").innerText = document.getElementById("inputID").value;
 
-            // QR কোড আপডেট করা
             qrcode.makeCode(number);
 
-            // ১১ ডিজিট নম্বরটিকে আলাদা আলাদা বক্সে ভাগ করা (Format: 018-1271-1699 বা আলাদা ঘর)
             let container = document.getElementById("numberBoxesContainer");
             container.innerHTML = "";
 
@@ -410,7 +395,6 @@
                 box.innerText = number[i];
                 container.appendChild(box);
 
-                // নির্দিষ্ট পজিশনে হাইফেন বা স্পেস যুক্ত করা (যেমন: ৩য় এবং ৭ম ঘরের পর)
                 if (i === 2 || i === 6) {
                     let dash = document.createElement("div");
                     dash.className = "dash";
@@ -420,14 +404,18 @@
             }
         }
 
-        // পেজ লোড হওয়ার সাথে সাথে রান করা
         window.onload = function() {
             updateCard();
         };
 
-        // ইমেজ ডাউনলোড করার ফাংশন
         function downloadImage() {
             const card = document.getElementById("captureCard");
+            html2canvas(card, { scale: 3, useCORS: true }).text ? null : html2canvas(card, { scale: 3, useCORS: true }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'nagad-qrcode-poster.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
             html2canvas(card, { scale: 3, useCORS: true }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = 'nagad-qrcode-poster.png';
@@ -436,7 +424,6 @@
             });
         }
 
-        // পিডিএফ ডাউনলোড করার ফাংশন
         function downloadPDF() {
             const { jsPDF } = window.jspdf;
             const card = document.getElementById("captureCard");
@@ -444,12 +431,8 @@
                 const imgData = canvas.toDataURL('image/png');
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 const imgWidth = 190; 
-                const pageHeight = 295;
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                let heightLeft = imgHeight;
-                let position = 10;
-
-                pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
                 pdf.save('nagad-qrcode-poster.pdf');
             });
         }
